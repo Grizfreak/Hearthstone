@@ -1,2 +1,2 @@
 # Heartstone
-Bah c'est heartstone quoi
+Bah c'est Heartstone quoi
