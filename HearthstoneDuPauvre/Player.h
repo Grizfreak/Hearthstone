@@ -8,19 +8,19 @@ class Player
 { 
 private:
 	std::string name;
-	std::vector<Card> hand;
-	Deck deck;
+	std::vector<Card*> hand;
+	Deck* deck;
 	bool isAlive;
-	std::vector<Card> cardsOnBoard;
+	std::vector<Card*> cardsOnBoard;
 	int maxMana;
 	int currentMana;
 	int health;
 	
 public:
-	Player(std::string name, Deck deck);
+	Player(std::string name, Deck* deck);
 	Player();
 	void draw();
-	void placeOnBoard(Card card);
+	void placeOnBoard(Card* card);
 	void incrementMaxmana();
 	~Player();
 	

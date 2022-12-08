@@ -1,7 +1,7 @@
 #pragma once
 #include "Board.h"
 #include "Player.h"
-#include "Music Manager.h"
+#include "MusicManager.h"
 
 class Game
 {
@@ -11,7 +11,7 @@ private:
 public:
 	Game(Board board, MusicManager music);
 	void start();
-	Player checkWin();
+	Player* checkWin();
 	~Game();
 };
 	

@@ -14,7 +14,8 @@ private:
 	Player player2;
 	TurnManager turnManager;
 public:
-	Board(Player player1, Player player2, TurnManager turnmanager);
-	void dispawnCard(Card card);
+	Board(Player player1, Player player2, TurnManager turnManager);
+	Board();
+	void dispawnCard(Card* card);
 	~Board();
 };

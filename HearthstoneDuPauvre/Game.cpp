@@ -10,8 +10,10 @@ void Game::start() {
 	//fonction qui lance le jeu
 }
 
-Player Game::checkWin() {
+Player* Game::checkWin() {
 	//fonction qui check si un joueur a gagné
+	return NULL;
+	
 }
 
 Game::~Game()
