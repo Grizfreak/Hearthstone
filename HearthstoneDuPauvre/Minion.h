@@ -6,7 +6,7 @@
 #include "Status.h"
 #include "TypeOfMonster.h"
 
-class Minion
+class Minion : public Card
 {
 private:
 	Status status;

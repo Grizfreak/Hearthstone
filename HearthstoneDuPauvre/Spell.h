@@ -5,7 +5,7 @@
 #include "Card.h"
 #include "TypeOfSpell.h"
 
-class Spell
+class Spell : public Card
 {
 private:
 	TypeOfSpell typeOfSpell;
