@@ -1,16 +1,18 @@
-#include "Music Manager.h"
+#include "MusicManager.h"
 
-MusicManager::MusicManager(MusicEnum music) {
-
-
-	
+MusicManager::MusicManager(Music music) {
+	this->currentMusic = music;
 }
 
-void MusicManager::playMusic(MusicEnum music) {
+MusicManager::MusicManager() {
+	this->currentMusic = Music::NONE;
+}
+
+void MusicManager::playMusic(Music music) {
 		
 }	
 
-void MusicManager::stopMusic(MusicEnum music) {
+void MusicManager::stopMusic(Music music) {
 
 }
 

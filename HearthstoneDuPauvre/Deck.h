@@ -7,11 +7,11 @@
 class Deck
 {
 private:
-	std::vector<Card> listOfCards;
+	std::vector<Card*> listOfCards;
 
 public:
-	Deck(std::vector<Card> listOfCards);
+	Deck(std::vector<Card*> listOfCards);
 	void shuffle();
-	Card getOneCard();
+	Card* getOneCard();
 	~Deck();
 };

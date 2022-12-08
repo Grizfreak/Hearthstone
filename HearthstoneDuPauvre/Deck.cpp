@@ -1,19 +1,18 @@
 #include <string>
 #include <vector>
 
-#include "Card.h"
 #include "Deck.h"
 
-Deck::Deck(std::vector<Card> listOfCards) {
+Deck::Deck(std::vector<Card*> listOfCards) {
 	this->listOfCards = listOfCards;
 }
 
-void shuffle() {
+void Deck::shuffle() {
 
 }
 
-Card getOneCard() {
-
+Card* Deck::getOneCard() {
+	return NULL;
 }
 
 Deck::~Deck() {
