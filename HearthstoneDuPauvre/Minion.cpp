@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "Minion.h"
 
@@ -29,10 +30,14 @@ Minion::Minion(std::string name, int attack, int costMana, int defense, TypeOfMo
 
 void Minion::useOn(Card* card)
 {
+	std::cout << "UseOn sur une seule carte";
+	return;
 }
 
 void Minion::useOn(std::vector<Card*> listOfCards)
 {
+	std::cout << "UseOn sur plusieurs cartes";
+	return;
 }
 
 Minion::~Minion() {
