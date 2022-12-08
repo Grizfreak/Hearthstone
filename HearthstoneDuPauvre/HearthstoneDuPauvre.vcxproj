@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Board.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Minion.h" />
@@ -134,6 +135,11 @@
     <ClInclude Include="Status.h" />
     <ClInclude Include="TypeOfMonster.h" />
     <ClInclude Include="TypeOfSpell.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Music Manager.h" />
+    <ClInclude Include="Musicenum.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="TurnManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
@@ -141,6 +147,11 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="Spell.cpp" />
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="MusicManager.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="TurnManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

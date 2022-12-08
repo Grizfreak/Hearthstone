@@ -15,4 +15,3 @@ public:
 	Card getOneCard();
 	~Deck();
 };
-
