@@ -12,13 +12,13 @@ Minion::Minion(std::string name, int attack, int costMana, int defense, Status s
 Minion::Minion(std::string name, int attack, int costMana, int defense, Status status) : Card(name, attack, costMana) {
 	this->defense = defense;
 	this->status = status;
-	this->type = TypeOfMonster::DEFAULT;
+	this->type = TypeOfMonster::HUMAN;
 }
 
 Minion::Minion(std::string name, int attack, int costMana, int defense) : Card(name, attack, costMana) {
 	this->defense = defense;
 	this->status = Status::DEFAULT;
-	this->type = TypeOfMonster::DEFAULT;
+	this->type = TypeOfMonster::HUMAN;
 }
 
 Minion::Minion(std::string name, int attack, int costMana, int defense, TypeOfMonster type) : Card(name, attack, costMana) {
