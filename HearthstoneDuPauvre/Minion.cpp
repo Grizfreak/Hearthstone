@@ -30,14 +30,19 @@ Minion::Minion(std::string name, int attack, int costMana, int defense, TypeOfMo
 
 void Minion::useOn(Card* card)
 {
-	std::cout << "UseOn sur une seule carte";
-	return;
+	Minion *minionToAttack = dynamic_cast<Minion*>(card);
+	minionToAttack->looseLife(this->getAttack());
 }
 
 void Minion::useOn(std::vector<Card*> listOfCards)
 {
 	std::cout << "UseOn sur plusieurs cartes";
 	return;
+}
+
+void Minion::looseLife(int life)
+{
+	this->defense -= life;
 }
 
 Minion::~Minion() {
