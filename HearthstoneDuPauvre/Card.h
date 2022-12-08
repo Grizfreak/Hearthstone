@@ -11,7 +11,7 @@ private:
 
 public:
 	Card(std::string name, int attack, int costMana);
-	void useOn(Card card);
-	void useOn(std::vector<Card> listOfCards);
+	virtual void useOn(Card card) = 0;
+	virtual void useOn(std::vector<Card> listOfCards) = 0;
 	~Card();
 };
