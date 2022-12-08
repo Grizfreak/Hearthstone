@@ -7,9 +7,9 @@ class Game
 {
 private:
 	Board board;
+	MusicManager musicManager;
 public:
 	Game(Board board, MusicManager music);
-	MusicManager musicManager;
 	void start();
 	Player checkWin();
 	~Game();

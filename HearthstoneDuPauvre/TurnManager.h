@@ -8,10 +8,11 @@
 class TurnManager
 {
 private:
-	Player currentPlayer;
+	Player *currentPlayer;
 public:
-	TurnManager(Player player1, Player player2);
-	void setCurrentPlayer(Player player);
+	TurnManager(Player &player1);
+	TurnManager();
+	void setCurrentPlayer(Player &player);
 	void endturn();
 	~TurnManager();
 };

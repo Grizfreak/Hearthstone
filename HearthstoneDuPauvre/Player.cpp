@@ -2,8 +2,8 @@
 
 Player::Player(std::string name, Deck deck):name(name),deck(deck) {
 	health = 35;
-	currentMana = 0;
-	maxMana = 10;
+	currentMana = 2;
+	maxMana = 2;
 	isAlive = true;
 	
 	
@@ -39,5 +39,6 @@ void Player::placeOnBoard(Card card) {
 void Player::incrementMaxmana() {
 	if (maxMana < 10) {
 		maxMana++;
+		currentMana = maxMana;
 	}
 }*/

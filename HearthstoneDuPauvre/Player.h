@@ -18,6 +18,7 @@ private:
 	
 public:
 	Player(std::string name, Deck deck);
+	Player();
 	void draw();
 	void placeOnBoard(Card card);
 	void incrementMaxmana();
