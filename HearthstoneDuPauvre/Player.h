@@ -22,6 +22,10 @@ public:
 	Card* draw();
 	void placeOnBoard(Card* card);
 	void incrementMaxmana();
+	int getHealth();
+	void setHealth(int health);
+	int getCurrentMana();
+	void setCurrentMana(int currentMana);
 	~Player();
 	
 };
