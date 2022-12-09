@@ -27,8 +27,11 @@ Card* Player::draw() {
 void Player::placeOnBoard(Card* card) {
 	for (int i = 0; i < hand.size(); i++) {
 		if (hand[i] == card) {
-			hand.erase(hand.begin() + i);
-			cardsOnBoard.push_back(card);
+			if (currentMana >= card->getCostMana()) {
+				currentMana -= card->getCostMana();
+				hand.erase(hand.begin() + i);
+				cardsOnBoard.push_back(card);
+			}
 		}
 	}
 }
