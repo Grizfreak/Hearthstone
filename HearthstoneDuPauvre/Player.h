@@ -15,13 +15,17 @@ private:
 	int maxMana;
 	int currentMana;
 	int health;
+	sf::RectangleShape playerHandRect;
 	
 public:
-	Player(std::string name, Deck* deck);
+	Player(std::string name, Deck* deck, sf::RectangleShape pHRect);
 	Player();
 	void draw();
 	void placeOnBoard(Card* card);
 	void incrementMaxmana();
+	std::vector<Card*> getHand();
+	std::vector<Card*> getCardsOnBoard();
+	sf::RectangleShape& getPlayerHandRect();
 	~Player();
 	
 };

@@ -9,6 +9,7 @@ Card::Card(std::string name, int attack, int costMana) {
 	this->name = name; 
 	this->attack = attack;
 	this->costMana = costMana;
+	this->cardRectangle = sf::RectangleShape(sf::Vector2f(120.f, 140.f));
 }
 
 /* Getters */
@@ -25,6 +26,11 @@ int Card::getCostMana() const
 std::string Card::getName() const
 {
 	return this->name;
+}
+
+sf::RectangleShape& Card::getCardRectangle()
+{
+	return this->cardRectangle;
 }
 
 /* Desctructor */

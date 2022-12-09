@@ -6,10 +6,10 @@
 class Game
 {
 private:
-	Board board;
+	Board* board;
 	MusicManager musicManager;
 public:
-	Game(Board board, MusicManager music);
+	Game(Board& board, MusicManager music);
 	void start();
 	Player* checkWin();
 	~Game();

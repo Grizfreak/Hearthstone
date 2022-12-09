@@ -1,8 +1,8 @@
 #include "Game.h"
 
-Game::Game(Board board, MusicManager music)
+Game::Game(Board& board, MusicManager music)
 {
-	board = board;
+	this->board = &board;
 	music = music;
 }
 

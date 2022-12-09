@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <SFML/Graphics.hpp>
 
 class Card
 {
@@ -8,6 +9,7 @@ private:
 	int attack;
 	int costMana;
 	std::string name;
+	sf::RectangleShape cardRectangle;
 
 public:
 	/* Constructor */
@@ -19,6 +21,7 @@ public:
 	int getAttack() const;
 	int getCostMana() const;
 	std::string getName() const;
+	sf::RectangleShape& getCardRectangle();
 	/* Desctructor */
 	~Card();
 	/* Redefine Operator */
