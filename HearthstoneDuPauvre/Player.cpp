@@ -6,6 +6,8 @@ Player::Player(std::string name, Deck* deck):name(name),deck(deck) {
 	currentMana = 2;
 	maxMana = 2;
 	isAlive = true;
+	std::vector<Card*> listOfCards;
+	deck = new Deck(listOfCards);
 }
 
 Player::Player() {
