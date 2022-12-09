@@ -10,6 +10,7 @@ private:
 	MusicManager musicManager;
 public:
 	Game(Board board, MusicManager music);
+	void displayMenu();
 	void start();
 	Player* checkWin();
 	~Game();

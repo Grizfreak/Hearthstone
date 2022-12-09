@@ -6,6 +6,8 @@
 #include "Deck.h"
 #include "Minion.h"
 #include "Spell.h"
+#include "Game.h"
+
 
 void testConsole() {
 	/* Test for Deck */
@@ -29,9 +31,42 @@ void testConsole() {
 
 int main()
 {
+	Spell* spell = new Spell("Spell1", 1, 1, TypeOfSpell::DAMAGE_BOOST);
+	std::vector<Card*> deckForPlayer1{ new Minion("Minion1", 1, 1, 1),
+		new Minion("Minion2", 2, 2, 2),
+		new Minion("Minion3", 3, 3, 3),
+		spell };
+
+	std::vector<Card*> deckForPlayer2{ new Minion("Minion1", 1, 1, 1),
+		new Minion("Minion2", 2, 2, 2),
+		new Minion("Minion3", 3, 3, 3),
+		spell };
+
+	std::string name1 = "Player1";
+	std::string name2 = "IA";
+
+	Player player1(name1, new Deck(deckForPlayer1));
+		Player player2(name2, new Deck(deckForPlayer2));
+
+	player1.draw();
+	TurnManager turnManager = TurnManager(player1);
+	sf::Texture background;
+
+	if (!background.loadFromFile("./assets/backgrounds/background.jpg"))
+	{
+		std::cout << "Error while loading background" << std::endl;
+		return EXIT_FAILURE;
+	}
+	std::cout << "Background loaded" << std::endl;
+	Board board = Board(player1, player2, turnManager);
+	Game game = Game(board, MusicManager());
+
+    /////////////////////////////////////////////////////////////////////
     testConsole();
+	Game game1 = Game(board, MusicManager());
+	game1.displayMenu();
+	
     sf::RenderWindow window(sf::VideoMode(1024, 720), "SFML works!");
-    sf::Texture background;
     bool holdingCard = false;
     sf::Vector2i starting_position;
     starting_position = sf::Mouse::getPosition(window);
@@ -68,7 +103,8 @@ int main()
     card2.setPosition(450, 600);
 	sf::RectangleShape* selectedCard = nullptr;
     while (window.isOpen())
-    {
+    {  
+
         sf::Event event;
         while (window.pollEvent(event))
         {

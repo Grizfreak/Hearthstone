@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <SFML/Graphics.hpp>
 
 class Card
 {
