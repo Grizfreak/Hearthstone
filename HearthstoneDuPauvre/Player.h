@@ -15,7 +15,6 @@ protected:
 	std::vector<Card*> cardsOnBoard;
 	int maxMana;
 	int currentMana;
-	int health;
 	sf::RectangleShape playerHandRect;
 	
 public:

@@ -38,16 +38,9 @@ void testConsole() {
 
 int main()
 {
-	Spell* spell = new Spell("Spell1", 1, 1, TypeOfSpell::DAMAGE_BOOST);
-	std::vector<Card*> deckForPlayer1{ new Minion("Minion1", 1, 1, 1),
-		new Minion("Minion2", 2, 2, 2),
-		new Minion("Minion3", 3, 3, 3),
-		spell };
-
-	std::vector<Card*> deckForPlayer2{ new Minion("Minion1", 1, 1, 1),
-		new Minion("Minion2", 2, 2, 2),
-		new Minion("Minion3", 3, 3, 3),
-		spell };
+	Spell* spell = new Spell("Fireball", 4, 1, std::vector<Bonus>() = { Bonus::DAMAGE_BOOST }, std::vector<Target>() = { Target::DEFAULT });
+	std::vector<Card*> deckForPlayer1{ new Minion("Minion1", 1, 1, 1), new Minion("Minion2", 2, 2, 2), new Minion("Minion3", 3, 3, 3), spell };
+	std::vector<Card*> deckForPlayer2{ new Minion("Minion1", 1, 1, 1), new Minion("Minion2", 2, 2, 2), new Minion("Minion3", 3, 3, 3), spell };
 
 	std::string name1 = "Player1";
 	std::string name2 = "IA";
