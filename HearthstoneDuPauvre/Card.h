@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <SFML/Graphics.hpp>
-
 #include "Bonus.h"
 #include "Target.h"
 
