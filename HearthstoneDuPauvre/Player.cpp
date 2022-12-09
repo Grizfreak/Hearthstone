@@ -44,6 +44,26 @@ void Player::incrementMaxmana() {
 	}
 }
 
+int Player::getHealth()
+{
+	return this->health;
+}
+
+void Player::setHealth(int health)
+{
+	this->health = health;
+}
+
+int Player::getCurrentMana()
+{
+	return this->currentMana;
+}
+
+void Player::setCurrentMana(int currentMana)
+{
+	this->currentMana = currentMana;
+}
+
 Player::~Player() {
 
 }

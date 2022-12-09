@@ -9,7 +9,7 @@
 
 void testConsole() {
 	/* Test for Deck */
-	Spell* spell = new Spell("Spell1", 1, 1, TypeOfSpell::DAMAGE_BOOST);
+	Spell* spell = new Spell("Fireball", 4, 6, std::vector<Bonus>() = { Bonus::DAMAGE_BOOST }, std::vector<Target>() = { Target::DEFAULT });
 	std::vector<Card*> deckForPlayer1{ new Minion("Minion1", 1, 1, 1), new Minion("Minion2", 2, 2, 2), new Minion("Minion3", 3, 3, 3), spell };
 	Deck* deck = new Deck(deckForPlayer1);
 	deck->shuffle();
@@ -25,6 +25,13 @@ void testConsole() {
 	std::cout << *minion2;
 	std::cout << *minion1;
 	std::cout << *spell;
+
+	/* Test using a spell on a list of minion */
+	std::vector<Card*> listOfMinion{ new Minion("Minion1", 1, 1, 1), new Minion("Minion2", 2, 2, 2), new Minion("Minion3", 3, 3, 3) };
+	spell->useOn(listOfMinion);
+	for (Card* card : listOfMinion) {
+		std::cout << *card;
+	}
 }
 
 int main()
