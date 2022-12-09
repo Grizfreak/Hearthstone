@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <SFML/Graphics.hpp>
 
 #include "Bonus.h"
 #include "Target.h"
@@ -11,6 +12,7 @@ private:
 	int attack;
 	int costMana;
 	std::string name;
+	sf::RectangleShape cardRectangle;
 
 public:
 	/* Constructor */
@@ -24,9 +26,10 @@ public:
 	int getAttack() const;
 	int getCostMana() const;
 	std::string getName() const;
+	sf::RectangleShape& getCardRectangle();
 	/* Setters */
 	void setAttack(int attack);
-	/* Desctructor */
+	/* Destructor */
 	~Card();
 	/* Redefine Operator */
 	friend std::ostream& operator<<(std::ostream& os, const Card& card);

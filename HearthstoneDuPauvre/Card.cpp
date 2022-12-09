@@ -9,6 +9,7 @@ Card::Card(std::string name, int attack, int costMana) {
 	this->name = name; 
 	this->attack = attack;
 	this->costMana = costMana;
+	this->cardRectangle = sf::RectangleShape(sf::Vector2f(120.f, 140.f));
 }
 
 std::string Card::bonusToString(std::vector<Bonus> bonus) const
@@ -80,6 +81,12 @@ std::string Card::getName() const
 	return this->name;
 }
 
+
+sf::RectangleShape& Card::getCardRectangle()
+{
+	return this->cardRectangle;
+}
+
 void Card::setAttack(int attack)
 {
 	this->attack = attack;
@@ -91,6 +98,7 @@ Card::~Card() {
 }
 
 /* Redefine Operator */
+
 std::ostream& operator<<(std::ostream& os, const Card& card)
 {
 	os << "Card Description : \n" 

@@ -15,13 +15,18 @@ protected:
 	std::vector<Card*> cardsOnBoard;
 	int maxMana;
 	int currentMana;
+	int health;
+	sf::RectangleShape playerHandRect;
 	
 public:
-	Player(std::string name, Deck* deck);
+	Player(std::string name, Deck* deck, sf::RectangleShape pHRect);
 	Player();
 	Card* draw();
 	void placeOnBoard(Card* card);
 	void incrementMaxmana();
+	std::vector<Card*> getHand();
+	std::vector<Card*> getCardsOnBoard();
+	sf::RectangleShape& getPlayerHandRect();
 	int getHealth();
 	void setHealth(int health);
 	int getCurrentMana();
