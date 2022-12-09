@@ -1,15 +1,18 @@
 #pragma once
-#include "Music.h"
+#include "MusicEnum.h"
+#include <SFML/Audio.hpp>
 
 
 class MusicManager
 {
 private:
-	Music currentMusic;
+	MusicEnum currentMusic;
+	sf::Music* ambientMusic;
+	sf::Music* fxMusic;
 public:
-	MusicManager(Music music);
+	MusicManager(MusicEnum music);
 	MusicManager();
-	void playMusic(Music music);
-	void stopMusic(Music music);
+	void playMusic(MusicEnum musicEnum, bool loop);
+	void stopMusic(MusicEnum music);
 	~MusicManager();
 };
