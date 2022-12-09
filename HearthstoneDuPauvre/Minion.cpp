@@ -35,8 +35,8 @@ void Minion::useOn(Card* card)
 	Minion *minionToAttack = dynamic_cast<Minion*>(card);
 	std::cout << "Minion " << this->getName() << " attacks " << minionToAttack->getName() + "\n";
 	std::cout << "Minion " << minionToAttack->getName() << " attacks " << this->getName() + "\n";
-	minionToAttack->looseLife(this->getAttack());
-	this->looseLife(minionToAttack->getAttack());
+	minionToAttack->loseLife(this->getAttack());
+	this->loseLife(minionToAttack->getAttack());
 }
 
 void Minion::useOn(std::vector<Card*> listOfCards)
@@ -77,7 +77,7 @@ std::string Minion::typeOfMonsterToString(TypeOfMonster type) const
 	}
 }
 
-void Minion::looseLife(int life)
+void Minion::loseLife(int life)
 {
 	this->defense -= life;
 }

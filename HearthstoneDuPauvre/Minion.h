@@ -25,7 +25,7 @@ public:
 	std::string statusToString(Status status) const;
 	std::string typeOfMonsterToString(TypeOfMonster type) const;
 	/* Setters */
-	void looseLife(int life);
+	void loseLife(int life);
 	/* Redefined operators */
 	friend std::ostream& operator<<(std::ostream& os, const Minion& minion);
 	~Minion();
