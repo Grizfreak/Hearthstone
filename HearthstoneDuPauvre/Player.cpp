@@ -49,7 +49,6 @@ void Player::incrementMaxmana() {
 		currentMana = maxMana;
 	}
 }
-
 std::vector<Card*> Player::getHand() {
 	return hand;
 }
@@ -58,6 +57,26 @@ std::vector<Card*> Player::getCardsOnBoard() {
 }
 sf::RectangleShape& Player::getPlayerHandRect() {
 	return playerHandRect;
+}
+
+int Player::getHealth()
+{
+	return this->health;
+}
+
+void Player::setHealth(int health)
+{
+	this->health = health;
+}
+
+int Player::getCurrentMana()
+{
+	return this->currentMana;
+}
+
+void Player::setCurrentMana(int currentMana)
+{
+	this->currentMana = currentMana;
 }
 
 Player::~Player() {

@@ -27,6 +27,10 @@ public:
 	std::vector<Card*> getHand();
 	std::vector<Card*> getCardsOnBoard();
 	sf::RectangleShape& getPlayerHandRect();
+	int getHealth();
+	void setHealth(int health);
+	int getCurrentMana();
+	void setCurrentMana(int currentMana);
 	~Player();
 	
 };
