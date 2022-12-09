@@ -22,7 +22,11 @@ public:
 	/* Methods */
 	void useOn(Card* card);
 	void useOn(std::vector<Card*> listOfCards);
+	std::string statusToString(Status status) const;
+	std::string typeOfMonsterToString(TypeOfMonster type) const;
 	/* Setters */
 	void looseLife(int life);
+	/* Redefined operators */
+	friend std::ostream& operator<<(std::ostream& os, const Minion& minion);
 	~Minion();
 };

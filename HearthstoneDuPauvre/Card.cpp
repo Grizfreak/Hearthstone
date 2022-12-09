@@ -12,17 +12,17 @@ Card::Card(std::string name, int attack, int costMana) {
 }
 
 /* Getters */
-int Card::getAttack()
+int Card::getAttack() const
 {
 	return this->attack;
 }
 
-int Card::getCostMana()
+int Card::getCostMana() const
 {
 	return this->costMana;
 }
 
-std::string Card::getName()
+std::string Card::getName() const
 {
 	return this->name;
 }

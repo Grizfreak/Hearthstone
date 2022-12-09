@@ -16,9 +16,9 @@ public:
 	virtual void useOn(Card *card) = 0;
 	virtual void useOn(std::vector<Card*> listOfCards) = 0;
 	/* Getters */
-	int getAttack();
-	int getCostMana();
-	std::string getName();
+	int getAttack() const;
+	int getCostMana() const;
+	std::string getName() const;
 	/* Desctructor */
 	~Card();
 	/* Redefine Operator */
