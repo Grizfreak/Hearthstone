@@ -11,6 +11,8 @@ Player::Player(std::string name, Deck* deck, sf::RectangleShape pHRect):name(nam
 	this->playerHandRect.setOutlineColor(sf::Color::Red);
 	this->playerHandRect.setOutlineThickness(5.f);
 	this->playerHandRect.setPosition(350.f, 650.f);
+	std::vector<Card*> listOfCards;
+	deck = new Deck(listOfCards);
 }
 
 Player::Player() {

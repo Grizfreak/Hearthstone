@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Bot.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Minion.h" />
@@ -145,11 +146,12 @@
     <ClInclude Include="TypeOfSpell.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="MusicManager.h" />
-    <ClInclude Include="Music.h" />
+    <ClInclude Include="MusicEnum.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TurnManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bot.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="main.cpp" />
