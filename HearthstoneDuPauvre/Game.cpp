@@ -75,7 +75,6 @@ void Game::displayGame() {
 					}
 
 				}
-				
 				std::cout << "Out of bounds" << std::endl;
 				if (player1.getHand().size() == 1)
 				{
