@@ -66,6 +66,7 @@ void Game::displayMenu() {
 				{
 					//close the window and start the game
 					patate.close();
+					this->displayGame();
 					std::cout << "play" << std::endl;
 				}
 			}
@@ -110,7 +111,7 @@ Player* Game::checkWin() {
 
 void Game::displayGame() {
 	Card* selectedCard = nullptr;
-	sf::RenderWindow window(sf::VideoMode(1024, 720), "Wouhou ça compile !");
+	sf::RenderWindow window(sf::VideoMode(1024, 720), "Wouhou compile !");
 	bool holdingCard = false;
 	sf::Vector2i starting_position;
 	sf::Vector2f current_position;
