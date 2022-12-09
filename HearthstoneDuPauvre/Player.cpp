@@ -22,24 +22,23 @@ Player::Player() {
 	deck = new Deck(listOfCards);
 }
 
-void Player::draw() {
-	/*if (deck.getDeck().size() > 0) {
-		hand.push_back(deck.getDeck().back());
-		deck.getDeck().pop_back();
-	}
-	else {
-		std::cout << "Plus de carte dans le deck" << std::endl;
-	}*/
+Card* Player::draw() {
+	Card* card = deck->getOneCard();
+	hand.push_back(card);
+	return card;
+          
 }
 
 void Player::placeOnBoard(Card* card) {
-	/*if (card.getManaCost() <= currentMana) {
-		cardsOnBoard.push_back(card);
-		currentMana -= card.getManaCost();
+	for (int i = 0; i < hand.size(); i++) {
+		if (hand[i] == card) {
+			if (currentMana >= card->getCostMana()) {
+				currentMana -= card->getCostMana();
+				hand.erase(hand.begin() + i);
+				cardsOnBoard.push_back(card);
+			}
+		}
 	}
-	else {
-		std::cout << "pas assez de mana" << std::endl;
-	}*/
 }
 
 void Player::incrementMaxmana() {

@@ -20,7 +20,7 @@ private:
 public:
 	Player(std::string name, Deck* deck, sf::RectangleShape pHRect);
 	Player();
-	void draw();
+	Card* draw();
 	void placeOnBoard(Card* card);
 	void incrementMaxmana();
 	std::vector<Card*> getHand();
