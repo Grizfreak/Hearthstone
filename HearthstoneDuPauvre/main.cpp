@@ -61,7 +61,7 @@ int main()
 	std::cout << "Background loaded" << std::endl;
 	Board board = Board(player1, player2, turnManager, &background);
 	Game game = Game(board, MusicManager());
-	game.displayGame();
+	game.displayMenu();
 	return 0;
 }
 
