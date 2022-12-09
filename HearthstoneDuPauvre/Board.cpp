@@ -3,7 +3,6 @@
 
 Board::Board(Player player1, Player player2, TurnManager turnManager, sf::Texture* backgroundTexture)
 {
-	std::cout<< backgroundTexture->getSize().x << std::endl;
     this->player1 = player1;
 	this->player2 = player2;
 	this->turnManager = turnManager;

@@ -30,7 +30,9 @@ void Game::displayGame() {
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape) window.close();
+			if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape) {
+				window.close();
+			}
 
 			if (event.type == sf::Event::MouseMoved && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
@@ -44,6 +46,9 @@ void Game::displayGame() {
 				}
 				if (holdingCard)
 				{
+					// On récupère la position de la souris
+					// Avec ça on calcule la nouvelle position de la carte
+					// On la centre sur le pointeur de la souris (en gros on décale la carte de la moitié de sa taille)
 					current_position.x = event.mouseMove.x - 60.f;
 					current_position.y = event.mouseMove.y - 70.f;
 					(*selectedCard).getCardRectangle().setPosition(current_position);
@@ -59,7 +64,7 @@ void Game::displayGame() {
 					std::cout << "On board" << std::endl;
 					player1.placeOnBoard(selectedCard);
 					std::cout << player1.getHand().size() << std::endl;
-					if (player1.getHand().size() == 1) {
+					if (player1.getCardsOnBoard().size() == 1) {
 						(*selectedCard).getCardRectangle().setPosition(100, 350);
 					}
 					else {
@@ -70,7 +75,8 @@ void Game::displayGame() {
 					}
 
 				}
-				std::cout << "Else" << std::endl;
+				
+				std::cout << "Out of bounds" << std::endl;
 				if (player1.getHand().size() == 1)
 				{
 					(player1.getHand()[0]->getCardRectangle()).setPosition(350.f, 600.f);
@@ -84,6 +90,7 @@ void Game::displayGame() {
 				}
 			}
 		}
+		
 		window.clear();
 		window.draw((*this->board).getBackground());
 		for (int i = 0; i < player1.getHand().size(); i++)
