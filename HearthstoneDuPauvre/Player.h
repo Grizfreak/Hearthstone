@@ -6,7 +6,8 @@
  
 class Player
 { 
-private:
+protected:
+	int health;
 	std::string name;
 	std::vector<Card*> hand;
 	Deck* deck;
@@ -14,7 +15,6 @@ private:
 	std::vector<Card*> cardsOnBoard;
 	int maxMana;
 	int currentMana;
-	int health;
 	
 public:
 	Player(std::string name, Deck* deck);
