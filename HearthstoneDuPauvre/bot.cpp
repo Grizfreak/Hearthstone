@@ -1,14 +1,14 @@
 #include "Bot.h"
 
 
-bot::bot(std::string name, Deck* deck) : Player(name, deck) {
+Bot::Bot(std::string name, Deck* deck) : Player(name, deck) {
 }
 
 
-bot::bot(): Player() {
+Bot::Bot(): Player() {
 	
 }
-void bot::autogame()
+void Bot::autogame()
 {
 	for (int i = 0; i < hand.size(); i++)
 	{
@@ -20,7 +20,7 @@ void bot::autogame()
 	
 }
 
-bot::~bot() {
+Bot::~Bot() {
 }
 
 

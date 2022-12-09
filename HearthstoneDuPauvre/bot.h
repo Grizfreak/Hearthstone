@@ -6,12 +6,12 @@
 #include "Player.h"
 
 
-class bot : public Player{
+class Bot : public Player{
 public:
-	bot(std::string name, Deck* deck);
-	bot();
+	Bot(std::string name, Deck* deck);
+	Bot();
 	void autogame();
-	~bot();
+	~Bot();
 
 };
 	
