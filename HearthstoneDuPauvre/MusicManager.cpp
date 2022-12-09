@@ -10,7 +10,7 @@ MusicManager::MusicManager() {
 }
 
 void MusicManager::playMusic(MusicEnum musicEnum, bool loop) {
-	sf::Music* musicToPlay;
+	sf::Music* musicToPlay= new sf::Music;
 	switch (musicEnum)
 	{
 	case MusicEnum::MAINTITLE:
