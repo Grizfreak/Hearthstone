@@ -51,7 +51,7 @@
     <ClInclude Include="MusicManager.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Music.h">
+    <ClInclude Include="MusicEnum.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Bot.h">
