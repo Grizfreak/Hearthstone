@@ -142,11 +142,11 @@
     <ClInclude Include="Minion.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="Status.h" />
-    <ClInclude Include="TypeOfMonster.h" />
-    <ClInclude Include="TypeOfSpell.h" />
+    <ClInclude Include="Target.h" />
+    <ClInclude Include="Bonus.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="MusicManager.h" />
-    <ClInclude Include="Music.h" />
+    <ClInclude Include="MusicEnum.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="TurnManager.h" />
   </ItemGroup>

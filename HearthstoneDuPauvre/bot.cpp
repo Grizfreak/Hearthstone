@@ -1,7 +1,7 @@
 #include "Bot.h"
 
 
-Bot::Bot(std::string name, Deck* deck) : Player(name, deck) {
+Bot::Bot(std::string name, Deck* deck, sf::RectangleShape pHRect) : Player(name, deck, pHRect) {
 }
 
 

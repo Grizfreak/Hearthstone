@@ -1,0 +1,9 @@
+#pragma once
+enum Bonus
+{
+	DAMAGE_BOOST,
+	DAMAGE_MALUS,
+	DAMAGE_ON_PLAYER,
+	MANA_BOOST,
+	DRAW_CARDS
+};

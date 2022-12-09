@@ -1,0 +1,16 @@
+#pragma once
+
+
+enum class MusicEnum
+{
+	NONE,
+	MAINTITLE,
+	DUELMUSIC,
+	DEATHMUSIC,
+	WINMUSIC,
+	RUNNINGTIME,
+	MONSTERATTACK,
+	BONUS,
+	SPELL,
+	DRAW,
+};

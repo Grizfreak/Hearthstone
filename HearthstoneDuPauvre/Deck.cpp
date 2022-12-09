@@ -22,7 +22,7 @@ Card* Deck::getOneCard() {
 
 int Deck::getLenght()
 {
-	return this->listOfCards.size();
+	return (int)this->listOfCards.size();
 }
 
 Deck::~Deck() {
