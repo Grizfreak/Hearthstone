@@ -1,16 +1,17 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(std::string name, Deck* deck, sf::RectangleShape pHRect):name(name),deck(deck) {
+Player::Player(std::string name, Deck* deck, sf::RectangleShape pHRect, sf::Vector2f position, sf::Color color) :name(name), deck(deck) {
 	health = 35;
 	currentMana = 2;
 	maxMana = 2;
 	isAlive = true;
 	this->playerHandRect = pHRect;
 	this->playerHandRect.setFillColor(sf::Color::Transparent);
-	this->playerHandRect.setOutlineColor(sf::Color::Red);
+	this->playerHandRect.setOutlineColor(color);
 	this->playerHandRect.setOutlineThickness(5.f);
-	this->playerHandRect.setPosition(350.f, 650.f);
+	this->playerHandRect.setPosition(position);
+	
 	std::vector<Card*> listOfCards;
 	deck = new Deck(listOfCards);
 }
@@ -72,6 +73,10 @@ void Player::setHealth(int health)
 int Player::getCurrentMana()
 {
 	return this->currentMana;
+}
+
+int Player::getMaxMana() {
+	return this->maxMana;
 }
 
 void Player::setCurrentMana(int currentMana)

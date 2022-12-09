@@ -18,7 +18,7 @@ protected:
 	sf::RectangleShape playerHandRect;
 	
 public:
-	Player(std::string name, Deck* deck, sf::RectangleShape pHRect);
+	Player(std::string name, Deck* deck, sf::RectangleShape pHRect, sf::Vector2f position, sf::Color color);
 	Player();
 	Card* draw();
 	void placeOnBoard(Card* card);
@@ -29,6 +29,7 @@ public:
 	int getHealth();
 	void setHealth(int health);
 	int getCurrentMana();
+	int getMaxMana();
 	void setCurrentMana(int currentMana);
 	~Player();
 	
