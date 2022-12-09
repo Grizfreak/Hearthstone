@@ -39,6 +39,7 @@ Card::~Card() {
 }
 
 /* Redefine Operator */
+
 std::ostream& operator<<(std::ostream& os, const Card& card)
 {
 	os << "Card Description : \n" 

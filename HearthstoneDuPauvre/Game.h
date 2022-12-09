@@ -2,6 +2,7 @@
 #include "Board.h"
 #include "Player.h"
 #include "MusicManager.h"
+#include <iostream>
 
 class Game
 {
@@ -12,6 +13,7 @@ public:
 	Game(Board& board, MusicManager music);
 	void start();
 	Player* checkWin();
+	void displayGame();
 	~Game();
 };
 	
