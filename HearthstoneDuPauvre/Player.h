@@ -19,8 +19,8 @@ protected:
 public:
 	Player(std::string name, Deck* deck);
 	Player();
-	void draw();
-	Card* placeOnBoard(Card* card);
+	Card* draw();
+	void placeOnBoard(Card* card);
 	void incrementMaxmana();
 	~Player();
 	
