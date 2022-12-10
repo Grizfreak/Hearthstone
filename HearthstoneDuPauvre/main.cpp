@@ -12,7 +12,7 @@
 
 void testConsole() {
 	/* Test for Deck */
-	Spell* spell = new Spell("Fireball", 4, 6, std::vector<Bonus>() = { Bonus::DAMAGE_BOOST }, std::vector<Target>() = { Target::DEFAULT });
+	Spell* spell = new Spell("Fireball", 4, 6, std::vector<Effect*>() = { new Effect(Bonus::DAMAGE_BOOST,1,Target::DEFAULT) });
 	std::vector<Card*> deckForPlayer1{ new Minion("Minion1", 1, 1, 1), new Minion("Minion2", 2, 2, 2), new Minion("Minion3", 3, 3, 3), spell };
 	Deck* deck = new Deck(deckForPlayer1);
 	deck->shuffle();
@@ -39,8 +39,8 @@ void testConsole() {
 
 int main()
 {
-	Spell* spell1 = new Spell("Fireball", 4, 1, std::vector<Bonus>() = { Bonus::DAMAGE_BOOST }, std::vector<Target>() = { Target::DEFAULT });
-	Spell* spell2 = new Spell("Fireball", 4, 1, std::vector<Bonus>() = { Bonus::DAMAGE_BOOST }, std::vector<Target>() = { Target::DEFAULT });
+	Spell* spell1 = new Spell("Fireball", 4, 1, std::vector<Effect*>() = { new Effect(Bonus::DAMAGE_BOOST,1,Target::DEFAULT) });
+	Spell* spell2 = new Spell("Fireball", 4, 1, std::vector<Effect*>() = { new Effect(Bonus::DAMAGE_BOOST,1,Target::DEFAULT) });
 	std::vector<Card*> deckForPlayer1{ new Minion("Minion1", 1, 1, 1), new Minion("Minion2", 2, 2, 2), new Minion("Minion3", 3, 3, 3), spell1 };
 	std::vector<Card*> deckForPlayer2{ new Minion("Minion1", 1, 1, 1), new Minion("Minion2", 2, 2, 2), new Minion("Minion3", 3, 3, 3), spell2 };
 
