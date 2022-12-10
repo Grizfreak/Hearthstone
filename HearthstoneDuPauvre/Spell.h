@@ -8,13 +8,11 @@
 class Spell : public Card
 {
 private:
-	std::vector<Bonus> bonus;
-	std::vector<Target> targets;
+	std::vector<Effect*> effects;
 
 public:
 	/* Constructor */
-	Spell(std::string name, int attack, int costMana, std::vector<Bonus> bonus, std::vector<Target> targets);
-	Spell(std::string name, int attack, int costMana, std::vector<Bonus> bonus);
+	Spell(std::string name, int attack, int costMana, std::vector<Effect*> effects);
 	/* Methods */
 	void useOn(Card* card);
 	void useOn(Player* player);

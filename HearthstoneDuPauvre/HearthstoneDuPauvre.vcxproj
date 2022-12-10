@@ -139,6 +139,7 @@
     <ClInclude Include="Bot.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="Deck.h" />
+    <ClInclude Include="DeckGenerator.h" />
     <ClInclude Include="Minion.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="Status.h" />
@@ -154,6 +155,7 @@
     <ClCompile Include="Bot.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Deck.cpp" />
+    <ClCompile Include="DeckGenerator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="Spell.cpp" />
