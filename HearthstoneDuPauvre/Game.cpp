@@ -9,7 +9,7 @@ Game::Game(Board& board, MusicManager music)
 
 void Game::displayMenu() {
 
-	sf::RenderWindow patate(sf::VideoMode(1650, 950), "PATATE!");
+	sf::RenderWindow window(sf::VideoMode(1650, 950), "Ecran de menu");
 	//create a background with background2 
 	sf::Texture background2;
 	if (!background2.loadFromFile("./assets/backgrounds/background2.jpg"))
@@ -23,13 +23,14 @@ void Game::displayMenu() {
 	backgroundSprite.setTexture(background2);
 	backgroundSprite.setPosition(0, 0);
 	backgroundSprite.setScale(1.0f, 1.0f);
+	this->musicManager.playMusic(MusicEnum::MAINTITLE, true);
 	
-	 while (patate.isOpen()) {
+	 while (window.isOpen()) {
 		sf::Event event;
-		while (patate.pollEvent(event))
+		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
-				patate.close();
+				window.close();
 			
 			sf::RectangleShape button1(sf::Vector2f(200.f, 100.f));
 			sf::RectangleShape button2(sf::Vector2f(200.f, 100.f));
@@ -42,7 +43,7 @@ void Game::displayMenu() {
 			
 			if (!font.loadFromFile("./assets/arial.ttf"))
 			{
-				
+				std::cout << "Error while loading font" << std::endl;
 			}
 
 			sf::Text text;
@@ -59,36 +60,36 @@ void Game::displayMenu() {
 			text2.setFillColor(sf::Color::White);
 			text2.setPosition(775, 420);
 			//when the mouse is on the red button, the button is green
-			if (button2.getGlobalBounds().contains((float)sf::Mouse::getPosition(patate).x, (float)sf::Mouse::getPosition(patate).y))
+			if (button2.getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
 			{
 				button2.setFillColor(sf::Color::Green);
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
 					//close the window and start the game
-					patate.close();
+					window.close();
 					this->displayGame();
 					std::cout << "play" << std::endl;
 				}
 			}
 			//create green button
-			if (button1.getGlobalBounds().contains((float)sf::Mouse::getPosition(patate).x, (float)sf::Mouse::getPosition(patate).y))
+			if (button1.getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
 			{
 				button1.setFillColor(sf::Color::Green);
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
 					//close the window and quit the game
-					patate.close();
+					window.close();
 					std::cout << "quit" << std::endl;
 				}
 			}
 			
 
-			patate.draw(backgroundSprite);
-			patate.draw(button1);
-			patate.draw(button2);
-			patate.draw(text);
-			patate.draw(text2);
-			patate.display();
+			window.draw(backgroundSprite);
+			window.draw(button1);
+			window.draw(button2);
+			window.draw(text);
+			window.draw(text2);
+			window.display();
 			
 			
 
@@ -130,8 +131,10 @@ void Game::displayGame() {
 	lifeJ2Text.setFont(font);
 	if (!font.loadFromFile("./assets/arial.ttf"))
 	{
-
+		std::cout << "Error while loading font" << std::endl;
 	}
+	this->musicManager.stopMusic(MusicEnum::MAINTITLE);
+	this->musicManager.playMusic(MusicEnum::DUELMUSIC, true);
 	while (window.isOpen())
 	{
 		sf::Event event;
