@@ -140,6 +140,7 @@
     <ClInclude Include="Card.h" />
     <ClInclude Include="Deck.h" />
     <ClInclude Include="DeckGenerator.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="Minion.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="Status.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="DeckGenerator.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="Spell.cpp" />

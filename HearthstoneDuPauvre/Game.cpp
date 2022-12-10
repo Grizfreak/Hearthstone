@@ -66,6 +66,7 @@ void Game::displayMenu() {
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
 					//close the window and start the game
+					this->musicManager.stopMusic(MusicEnum::MAINTITLE);
 					window.close();
 					this->displayGame();
 					std::cout << "play" << std::endl;
@@ -133,7 +134,6 @@ void Game::displayGame() {
 	{
 		std::cout << "Error while loading font" << std::endl;
 	}
-	this->musicManager.stopMusic(MusicEnum::MAINTITLE);
 	this->musicManager.playMusic(MusicEnum::DUELMUSIC, true);
 	while (window.isOpen())
 	{
