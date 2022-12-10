@@ -8,6 +8,7 @@
 #include "Spell.h"
 #include "Game.h"
 #include "Board.h"
+#include "bot.h"
 
 void testConsole() {
 	/* Test for Deck */
@@ -38,18 +39,21 @@ void testConsole() {
 
 int main()
 {
-	Spell* spell = new Spell("Fireball", 4, 1, std::vector<Bonus>() = { Bonus::DAMAGE_BOOST }, std::vector<Target>() = { Target::DEFAULT });
-	std::vector<Card*> deckForPlayer1{ new Minion("Minion1", 1, 1, 1), new Minion("Minion2", 2, 2, 2), new Minion("Minion3", 3, 3, 3), spell };
-	std::vector<Card*> deckForPlayer2{ new Minion("Minion1", 1, 1, 1), new Minion("Minion2", 2, 2, 2), new Minion("Minion3", 3, 3, 3), spell };
+	Spell* spell1 = new Spell("Fireball", 4, 1, std::vector<Bonus>() = { Bonus::DAMAGE_BOOST }, std::vector<Target>() = { Target::DEFAULT });
+	Spell* spell2 = new Spell("Fireball", 4, 1, std::vector<Bonus>() = { Bonus::DAMAGE_BOOST }, std::vector<Target>() = { Target::DEFAULT });
+	std::vector<Card*> deckForPlayer1{ new Minion("Minion1", 1, 1, 1), new Minion("Minion2", 2, 2, 2), new Minion("Minion3", 3, 3, 3), spell1 };
+	std::vector<Card*> deckForPlayer2{ new Minion("Minion1", 1, 1, 1), new Minion("Minion2", 2, 2, 2), new Minion("Minion3", 3, 3, 3), spell2 };
 
 	std::string name1 = "Player1";
 	std::string name2 = "IA";
 
-	Player player1(name1, new Deck(deckForPlayer1), sf::RectangleShape(sf::Vector2f(350.f, 140.f)));
-	Player player2(name2, new Deck(deckForPlayer2), sf::RectangleShape(sf::Vector2f(200.f, 140.f)));
+	Player player1(name1, new Deck(deckForPlayer1), sf::RectangleShape(sf::Vector2f(350.f, 140.f)),sf::Vector2f(583.f, 850.f), sf::Color::Red);
+	Bot player2(name2, new Deck(deckForPlayer2), sf::RectangleShape(sf::Vector2f(350.f, 140.f)),sf::Vector2f(600.f,0.f), sf::Color::Blue);
 
 	player1.draw();
 	player1.draw();
+	player2.draw();
+	player2.autogame();
 	std::cout << player1.getHand().size() << std::endl;
 	TurnManager turnManager = TurnManager(player1);
 	sf::Texture background;
