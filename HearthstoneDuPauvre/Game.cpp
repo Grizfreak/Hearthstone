@@ -79,6 +79,7 @@ void Game::displayMenu() {
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
 					//close the window and quit the game
+					this->musicManager.stopMusic(MusicEnum::MAINTITLE);
 					window.close();
 					std::cout << "quit" << std::endl;
 				}
@@ -141,6 +142,7 @@ void Game::displayGame() {
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape) {
+				this->musicManager.stopMusic(MusicEnum::DUELMUSIC);
 				window.close();
 			}
 			
@@ -216,7 +218,7 @@ void Game::displayGame() {
 		
 		window.clear();
 		window.draw((*this->board).getBackground());
-		//Display player1
+		//Display player1 hand
 		for (int i = 0; i < player1.getHand().size(); i++)
 		{
 			if (player1.getHand()[i] != selectedCard)
@@ -230,31 +232,81 @@ void Game::displayGame() {
 			}
 
 		}
+		//Display player1 cards on board
 		for (int i = 0; i < player1.getCardsOnBoard().size(); i++)
 		{
 			sf::RectangleShape* card = &player1.getCardsOnBoard()[i]->getCardRectangle();
 			card->setPosition(((*hitboxes[0]).getPosition().x + (i * 100.f)), ((*hitboxes[0]).getPosition().y));
 			window.draw(*card);
+			player1.getCardsOnBoard()[i]->refreshTextDatas();
+			std::vector<sf::Vector2f> textPositions = player1.getCardsOnBoard()[i]->refreshTextPositions();
+			for (int j = 0; j < player1.getCardsOnBoard()[i]->getTextRectangles().size(); j++)
+			{
+				player1.getCardsOnBoard()[i]->getTextRectangles()[j].setPosition(textPositions[j]);
+				window.draw(player1.getCardsOnBoard()[i]->getTextRectangles()[j]);
+			}
 		}
-		
+		//Display text on board
+		for (int i = 0; i < player1.getHand().size(); i++)
+		{
+			player1.getHand()[i]->refreshTextDatas();
+			std::vector<sf::Vector2f> textPositions = player1.getHand()[i]->refreshTextPositions();
+			for (int j = 0; j < player1.getHand()[i]->getTextRectangles().size(); j++)
+			{
+				player1.getHand()[i]->getTextRectangles()[j].setPosition(textPositions[j]);
+				window.draw(player1.getHand()[i]->getTextRectangles()[j]);
+			}
+		}
+
 		// Display player2
 		for (int i = 0; i < player2.getHand().size(); i++)
 		{
 				sf::RectangleShape* card = &player2.getHand()[i]->getCardRectangle();
 				card->setPosition(hitboxes[3]->getPosition().x + (i * 100.f), hitboxes[3]->getPosition().y);
 				window.draw(*card);
+				player2.getCardsOnBoard()[i]->refreshTextDatas();
+				std::vector<sf::Vector2f> textPositions = player2.getCardsOnBoard()[i]->refreshTextPositions();
+				for (int j = 0; j < player2.getCardsOnBoard()[i]->getTextRectangles().size(); j++)
+				{
+					player2.getCardsOnBoard()[i]->getTextRectangles()[j].setPosition(textPositions[j]);
+					window.draw(player2.getCardsOnBoard()[i]->getTextRectangles()[j]);
+				}
 
 		}
+
+		//Display player2 cards on board
 		for (int i = 0; i < player2.getCardsOnBoard().size(); i++)
 		{
 			sf::RectangleShape* card = &player2.getCardsOnBoard()[i]->getCardRectangle();
 			card->setPosition(((*hitboxes[2]).getPosition().x + (i * 100.f)), ((*hitboxes[2]).getPosition().y));
 			window.draw(*card);
+			player2.getCardsOnBoard()[i]->refreshTextDatas();
+			std::vector<sf::Vector2f> textPositions = player2.getCardsOnBoard()[i]->refreshTextPositions();
+			for (int j = 0; j < player2.getCardsOnBoard()[i]->getTextRectangles().size(); j++)
+			{
+				player2.getCardsOnBoard()[i]->getTextRectangles()[j].setPosition(textPositions[j]);
+				window.draw(player2.getCardsOnBoard()[i]->getTextRectangles()[j]);
+			}
 		}
+
+		
+		for (int i = 0; i < player2.getHand().size(); i++)
+		{
+			player2.getHand()[i]->refreshTextDatas();
+			player2.getHand()[i]->refreshTextPositions();
+			for (int j = 0; j < player2.getHand()[i]->getTextRectangles().size(); j++)
+			{
+				window.draw(player2.getHand()[i]->getTextRectangles()[j]);
+			}
+		}
+
+		
 		for (int i = 0; i < hitboxes.size(); i++)
 		{
 			window.draw((*hitboxes[i]));
 		}
+		
+		
 		std::string mana = std::to_string(player1.getCurrentMana());
 		std::string maxMana = std::to_string(player1.getMaxMana());
 		manaText.setString(mana + "/" + maxMana);

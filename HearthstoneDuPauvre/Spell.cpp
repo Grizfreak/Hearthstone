@@ -6,8 +6,8 @@
 #include "Minion.h"
 
 
-Spell::Spell(std::string name, int attack, int costMana, std::vector<Effect*> effects)
-	: Card(name, attack, costMana)
+Spell::Spell(std::string name, int attack, int costMana, std::string imagePath, std::vector<Effect*> effects)
+	: Card(name, attack, costMana, imagePath)
 {
 	this->effects = effects;
 }

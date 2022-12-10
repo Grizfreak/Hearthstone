@@ -12,7 +12,7 @@ private:
 
 public:
 	/* Constructor */
-	Spell(std::string name, int attack, int costMana, std::vector<Effect*> effects);
+	Spell(std::string name, int attack, int costMana, std::string imagePath, std::vector<Effect*> effects);
 	/* Methods */
 	void useOn(Card* card);
 	void useOn(Player* player);
