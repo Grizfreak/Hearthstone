@@ -43,7 +43,6 @@ Deck* DeckGenerator::generateDeck1()
 			new Minion("Tranche moelle",4,4,"29.png",2, std::vector<Effect*>() = { new Effect(Bonus::DAMAGE_MALUS, 1, Target::GROUP), new Effect(Bonus::DRAW_CARDS, 1, Target::DEFAULT)}),
 			new Minion("Tranche moelle",4,4,"30.png",2, std::vector<Effect*>() = { new Effect(Bonus::DAMAGE_MALUS, 1, Target::GROUP), new Effect(Bonus::DRAW_CARDS, 1, Target::DEFAULT)}),
 			
-			/* Sofiane continue ici avec les cartes 2 à 30*/
 
 			
 		});
