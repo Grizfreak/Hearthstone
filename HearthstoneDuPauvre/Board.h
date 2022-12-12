@@ -24,5 +24,6 @@ public:
 	sf::RectangleShape& getJ1cardBoard();
 	sf::RectangleShape& getJ2cardBoard();
 	sf::Sprite& getBackground();
+	TurnManager& getTurnManager();
 	~Board();
 };

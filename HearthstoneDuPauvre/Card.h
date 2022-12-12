@@ -37,6 +37,7 @@ public:
 	std::string getName() const;
 	std::vector<sf::Text>& getTextRectangles();
 	sf::RectangleShape& getCardRectangle();
+	std::string& getImagePath();
 	/* Setters */
 	void setAttack(int attack);
 	/* Destructor */

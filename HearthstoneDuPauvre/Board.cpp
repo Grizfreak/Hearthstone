@@ -43,6 +43,10 @@ sf::Sprite& Board::getBackground() {
 	return this->background;
 }
 
+TurnManager& Board::getTurnManager() {
+	return this->turnManager;
+}
+
 Board::~Board() {
 
 }
