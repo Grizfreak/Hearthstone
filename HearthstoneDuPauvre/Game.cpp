@@ -228,7 +228,7 @@ void Game::displayGame()
 					std::cout << "On board" << std::endl;
 					if (typeid(*selectedCard) == typeid(Minion))
 					{
-						(*player1).placeOnBoard(selectedCard);
+						(*player1).placeOnBoard(selectedCard, *player2);
 					}
 					std::cout << (*player1).getHand().size() << std::endl;
 					if ((*player1).getCardsOnBoard().size() == 1)
