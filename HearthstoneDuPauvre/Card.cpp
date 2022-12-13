@@ -66,6 +66,10 @@ sf::RectangleShape& Card::getCardRectangle() {
 	return this->cardRectangle;
 }
 
+std::string& Card::getImagePath() {
+	return this->imagePath;
+}
+
 /* Setters */
 void Card::setAttack(int attack)
 {
