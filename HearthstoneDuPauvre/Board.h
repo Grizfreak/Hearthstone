@@ -19,8 +19,8 @@ private:
 public:
 	Board(Player player1, Player player2, TurnManager turnManager, sf::Texture* backgroundTexture);
 	void dispawnCard(Card* card);
-	Player getPlayer1();
-	Player getPlayer2();
+	Player& getPlayer1();
+	Player& getPlayer2();
 	sf::RectangleShape& getJ1cardBoard();
 	sf::RectangleShape& getJ2cardBoard();
 	sf::Sprite& getBackground();
