@@ -24,11 +24,11 @@ void Board::dispawnCard(Card* card) {
 
 }
 
-Player Board::getPlayer1() {
+Player& Board::getPlayer1() {
 	return this->player1;
 }
 
-Player Board::getPlayer2() {
+Player& Board::getPlayer2() {
 	return this->player2;
 }
 
@@ -41,6 +41,10 @@ sf::RectangleShape& Board::getJ2cardBoard() {
 
 sf::Sprite& Board::getBackground() {
 	return this->background;
+}
+
+TurnManager& Board::getTurnManager() {
+	return this->turnManager;
 }
 
 Board::~Board() {

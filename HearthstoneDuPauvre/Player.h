@@ -8,6 +8,8 @@
  
 class Player
 { 
+private:
+	sf::Text manaText;
 protected:
 	int health;
 	std::string name;
@@ -18,6 +20,11 @@ protected:
 	int maxMana;
 	int currentMana;
 	sf::RectangleShape playerHandRect;
+	sf::RectangleShape playerAvatar;
+	sf::Text healthText;
+	sf::Font font;
+	std::vector<sf::Text> playerTexts;
+	
 	
 public:
 	Player(std::string name, Deck* deck, sf::RectangleShape pHRect, sf::Vector2f position, sf::Color color);
@@ -25,9 +32,12 @@ public:
 	Card* draw();
 	void placeOnBoard(Card* card, Player enemy);
 	void incrementMaxmana();
+	void refreshTextDatas();
 	std::vector<Card*> getHand();
 	std::vector<Card*> getCardsOnBoard();
 	sf::RectangleShape& getPlayerHandRect();
+	std::vector<sf::Text>& getPlayerTexts();
+	sf::RectangleShape& getPlayerAvatar();
 	int getHealth();
 	void setHealth(int health);
 	int getCurrentMana();
