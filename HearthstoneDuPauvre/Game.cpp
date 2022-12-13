@@ -188,7 +188,7 @@ void Game::displayGame() {
 				if ((*hitboxes[0]).getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 				{
 					std::cout << "On board" << std::endl;
-					player1.placeOnBoard(selectedCard);
+					player1.placeOnBoard(selectedCard, player2);
 					std::cout << player1.getHand().size() << std::endl;
 					if (player1.getCardsOnBoard().size() == 1) {
 						(*selectedCard).getCardRectangle().setPosition(((*hitboxes[0]).getPosition().x), (*hitboxes[0]).getPosition().y);

@@ -3,6 +3,8 @@
 #include <vector>
 #include "Deck.h"
 #include "Card.h"
+#include "Minion.h"
+#include "Spell.h"
  
 class Player
 { 
@@ -21,7 +23,7 @@ public:
 	Player(std::string name, Deck* deck, sf::RectangleShape pHRect, sf::Vector2f position, sf::Color color);
 	Player();
 	Card* draw();
-	void placeOnBoard(Card* card);
+	void placeOnBoard(Card* card, Player enemy);
 	void incrementMaxmana();
 	std::vector<Card*> getHand();
 	std::vector<Card*> getCardsOnBoard();

@@ -29,6 +29,9 @@ public:
 	/* Setters */
 	void loseLife(int life);
 	void gainLife(int life);
+	/* Getters */
+	bool hasEffect();
+	std::vector<Effect*> getEffects();
 	/* Redefined operators */
 	friend std::ostream& operator<<(std::ostream& os, const Minion& minion);
 	~Minion();

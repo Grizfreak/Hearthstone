@@ -46,9 +46,14 @@ Minion::Minion(std::string name, int attack, int costMana, std::string imagePath
 /* Methods */
 void Minion::useOn(Card* card)
 {
+	/* Cast the card into a minion so it can access it's following attributes */
 	Minion *minionToAttack = dynamic_cast<Minion*>(card);
+
+	/* Console Input */
 	std::cout << "Minion " << this->getName() << " attacks " << minionToAttack->getName() + "\n";
 	std::cout << "Minion " << minionToAttack->getName() << " attacks " << this->getName() + "\n";
+
+	/* Each minion lose like by attacking each other */
 	minionToAttack->loseLife(this->getAttack());
 	this->loseLife(minionToAttack->getAttack());
 }
@@ -95,6 +100,17 @@ void Minion::loseLife(int life)
 void Minion::gainLife(int life)
 {
 	this->defense += life;
+}
+
+bool Minion::hasEffect()
+{
+	bool hasEffect = this->effects.size() > 0;
+	return hasEffect;
+}
+
+std::vector<Effect*> Minion::getEffects()
+{
+	return this->effects;
 }
 
 /* Destructors */

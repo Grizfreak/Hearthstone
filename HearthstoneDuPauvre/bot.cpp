@@ -14,7 +14,7 @@ void Bot::autogame()
 	{
 		if (hand[i]->getCostMana() <= currentMana)
 		{
-			placeOnBoard(hand[i]);
+			/*placeOnBoard(hand[i]);*/
 		}
 	}
 	
