@@ -18,6 +18,8 @@ public:
 	void useOn(std::vector<Card*> listOfCards);
 	/* Redefined Methods */
 	friend std::ostream& operator<<(std::ostream& os, const Spell& spell);
+	/* Getter */
+	std::vector<Effect*> getEffects() const;
 	/* Destructor */
 	~Spell();
 };

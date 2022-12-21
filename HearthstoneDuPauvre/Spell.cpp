@@ -23,6 +23,11 @@ void Spell::useOn(std::vector<Card*> listOfCards)
 	}
 }
 
+std::vector<Effect*> Spell::getEffects() const
+{
+	return this->effects;
+}
+
 Spell::~Spell() {
 
 }

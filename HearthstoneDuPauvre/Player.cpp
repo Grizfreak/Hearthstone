@@ -100,6 +100,46 @@ void Player::placeOnBoard(Card* card, Player enemy) {
 			else if (typeid(*card) == typeid(Spell))
 			{
 				Spell* spell = dynamic_cast<Spell*>(card);
+
+					for (Effect* effect : spell->getEffects())
+					{
+						switch (effect->getBonus())
+						{
+						case Bonus::DAMAGE_BOOST:
+							if (effect->getTarget() == Target::SINGLE) {
+								/* TODO for a single card*/
+							}
+							else {
+								for (Card* card : hand) {
+									card->setAttack(card->getAttack() + effect->getValue());
+								}
+							}
+							break;
+						case Bonus::DAMAGE_MALUS:
+							if (effect->getTarget() == Target::SINGLE) {
+								/* TODO for a single card */
+							}
+							else {
+								for (Card* card : enemy.hand) {
+									card->setAttack(card->getAttack() - effect->getValue());
+								}
+							}
+							break;
+						case Bonus::DAMAGE_ON_PLAYER:
+							enemy.setHealth(enemy.getHealth() - effect->getValue());
+							break;
+						case Bonus::DRAW_CARDS:
+							for (int i = 0; i < effect->getValue(); i++) {
+								draw();
+							}
+							break;
+						case Bonus::MANA_BOOST:
+							this->setCurrentMana(this->getCurrentMana() + effect->getValue());
+							break;
+						default:
+							break;
+						}
+				}
 			}
 			else {
 				std::cout << "Error: Card is not a minion or a spell";
