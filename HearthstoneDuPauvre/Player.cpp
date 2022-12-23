@@ -46,7 +46,7 @@ Card* Player::draw() {
 	}    
 }
 
-void Player::placeOnBoard(Card* card, Player enemy) {
+void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 	for (int i = 0; i < hand.size(); i++) {
 		if (hand[i] == card) {
 			if (currentMana >= card->getCostMana()) {
@@ -63,6 +63,9 @@ void Player::placeOnBoard(Card* card, Player enemy) {
 						case Bonus::DAMAGE_BOOST:
 							if (effect->getTarget() == Target::SINGLE) {
 								/* TODO for a single card*/
+								if (cardToTouch != nullptr) {
+									std::cout << cardToTouch->getName() << std::endl;
+								}
 							}
 							else {
 								for (Card* card : hand) {
@@ -73,15 +76,18 @@ void Player::placeOnBoard(Card* card, Player enemy) {
 						case Bonus::DAMAGE_MALUS:
 							if (effect->getTarget() == Target::SINGLE) {
 								/* TODO for a single card */
+								if (cardToTouch != nullptr) {
+									std::cout << cardToTouch->getName() << std::endl;
+								}
 							}
 							else {
-								for (Card* card : enemy.hand) {
+								for (Card* card : enemy->hand) {
 									card->setAttack(card->getAttack() - effect->getValue());
 								}
 							}
 							break;
 						case Bonus::DAMAGE_ON_PLAYER:
-							enemy.setHealth(enemy.getHealth() - effect->getValue());
+							enemy->setHealth(enemy->getHealth() - effect->getValue());
 							break;
 						case Bonus::DRAW_CARDS:
 							for (int i = 0; i < effect->getValue(); i++) {
@@ -109,6 +115,9 @@ void Player::placeOnBoard(Card* card, Player enemy) {
 						case Bonus::DAMAGE_BOOST:
 							if (effect->getTarget() == Target::SINGLE) {
 								/* TODO for a single card*/
+								if (cardToTouch != nullptr) {
+									std::cout << cardToTouch->getName() << std::endl;
+								}
 							}
 							else {
 								for (Card* card : hand) {
@@ -119,15 +128,18 @@ void Player::placeOnBoard(Card* card, Player enemy) {
 						case Bonus::DAMAGE_MALUS:
 							if (effect->getTarget() == Target::SINGLE) {
 								/* TODO for a single card */
+								if (cardToTouch != nullptr) {
+									std::cout << cardToTouch->getName() << std::endl;
+								}
 							}
 							else {
-								for (Card* card : enemy.hand) {
+								for (Card* card : enemy->hand) {
 									card->setAttack(card->getAttack() - effect->getValue());
 								}
 							}
 							break;
 						case Bonus::DAMAGE_ON_PLAYER:
-							enemy.setHealth(enemy.getHealth() - effect->getValue());
+							enemy->setHealth(enemy->getHealth() - effect->getValue());
 							break;
 						case Bonus::DRAW_CARDS:
 							for (int i = 0; i < effect->getValue(); i++) {
@@ -147,7 +159,9 @@ void Player::placeOnBoard(Card* card, Player enemy) {
 			}
 
 			hand.erase(hand.begin() + i);
-			cardsOnBoard.push_back(card);
+			if (typeid(*card) == typeid(Minion)) {
+				cardsOnBoard.push_back(card);
+			}
 			}
 		}
 	}
@@ -182,6 +196,10 @@ std::vector<sf::Text>& Player::getPlayerTexts() {
 
 sf::RectangleShape& Player::getPlayerAvatar() {
 	return this->playerAvatar;
+}
+
+ Deck& Player::getDeck() const {
+	return *this->deck;
 }
 
 int Player::getHealth()

@@ -18,10 +18,10 @@ void Bot::play(Player* ennemy)
 	}
 
 	/* Play the first card in the hand */
-	this->placeOnBoard(this->getHand()[0], ennemy);
+	this->placeOnBoard(this->getHand()[0], ennemy,nullptr);
 
 	/* If he can, place another card */
-	this->placeOnBoard(this->getHand()[0], ennemy);
+	this->placeOnBoard(this->getHand()[0], ennemy,nullptr);
 	
 	/* Attack the ennemy card to be sure to kill */
 	for (Card* card : ennemy->getCardsOnBoard()) {
