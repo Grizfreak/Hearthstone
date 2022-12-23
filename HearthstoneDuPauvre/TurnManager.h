@@ -9,10 +9,10 @@ class TurnManager
 {
 private:
 	Player *currentPlayer;
+	int indexOfCurrentPlayer;
+	std::vector<Player*> listOfPlayers;
 public:
-	TurnManager(Player &player1);
 	TurnManager();
-	void setCurrentPlayer(Player &player);
 	void endturn();
 	~TurnManager();
 };
