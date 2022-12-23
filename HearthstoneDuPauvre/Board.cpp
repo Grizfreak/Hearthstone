@@ -1,7 +1,7 @@
 #include "Board.h"
 #include <iostream>
 
-Board::Board(Player player1, Bot player2, TurnManager *turnManager, sf::Texture* backgroundTexture)
+Board::Board(Player* player1, Bot* player2, TurnManager *turnManager, sf::Texture* backgroundTexture)
 {
     this->player1 = player1;
 	this->player2 = player2;
@@ -25,11 +25,11 @@ void Board::dispawnCard(Card* card) {
 }
 
 Player& Board::getPlayer1() {
-	return this->player1;
+	return *this->player1;
 }
 
 Bot& Board::getPlayer2() {
-	return this->player2;
+	return *this->player2;
 }
 
 sf::RectangleShape& Board::getJ1cardBoard() {

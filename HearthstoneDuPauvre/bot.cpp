@@ -12,17 +12,15 @@ Bot::Bot(): Player() {
 
 void Bot::play(Player* ennemy)
 {
-	/* Draw cards while the bot doesn't have in his hand */
-	if (this->getHand().size() == 0) {
-		this->draw();
-	}
+	std::cout << "Bot is playing" << std::endl;
+	
+	std::cout << this->deck->getLenght();
+	
+	this->draw();
 
 	/* Play the first card in the hand */
 	this->placeOnBoard(this->getHand()[0], ennemy,nullptr);
 
-	/* If he can, place another card */
-	this->placeOnBoard(this->getHand()[0], ennemy,nullptr);
-	
 	/* Attack the ennemy card to be sure to kill */
 	for (Card* card : ennemy->getCardsOnBoard()) {
 		/* Cast the card into a minion */

@@ -17,6 +17,13 @@ void TurnManager::endturn()
 	}
 
 	this->currentPlayer = this->listOfPlayers.at(indexOfCurrentPlayer);
+	this->currentPlayer->incrementMaxmana();
+}
+
+
+Player* TurnManager::getCurrentPlayer()
+{
+	return this->currentPlayer;
 }
 
 TurnManager::~TurnManager()
