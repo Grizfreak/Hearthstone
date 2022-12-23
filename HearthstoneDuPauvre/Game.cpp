@@ -293,13 +293,17 @@ void Game::displayGame()
 						{
 							if ((*player2).getCardsOnBoard()[i]->getCardRectangle().getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 							{
+								//Touche a card to attack
 								std::cout << "On card : " << *(*player2).getCardsOnBoard()[i] << std::endl;
+								selectedCard->useOn(player2->getCardsOnBoard()[i]);
 							}
 						}
 					}
 					if ((*player2).getPlayerAvatar().getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y) && holdingAttack)
-					{
+					{ 
+						//Touched player with attack TODO
 						std::cout << "On player" << std::endl;
+						//selectedCard->useOn(player2);
 					}
 					if ((*player1).getHand().size() == 1)
 					{
@@ -355,6 +359,12 @@ void Game::drawGame(sf::RenderWindow &window, Card *selectedCard, Card *cardToDi
 		card->setPosition(((*hitboxes[0]).getPosition().x + (i * 100.f)), ((*hitboxes[0]).getPosition().y));
 		window.draw(*card);
 		(*player1).getCardsOnBoard()[i]->refreshTextDatas();
+		(*player1).getCardsOnBoard()[i]->refreshTextDatas();
+		(*player1).getCardsOnBoard()[i]->getTextRectangles()[0].setString(std::to_string((*player1).getCardsOnBoard()[i]->getCostMana()));
+		(*player1).getCardsOnBoard()[i]->getTextRectangles()[1].setString(std::to_string((*player1).getCardsOnBoard()[i]->getAttack()));
+		Minion* minion = dynamic_cast<Minion*>((*player1).getCardsOnBoard()[i]);
+		std::cout << minion->getDefense();
+		(*player1).getCardsOnBoard()[i]->getTextRectangles()[2].setString(std::to_string(minion->getDefense()));
 		std::vector<sf::Vector2f> textPositions = (*player1).getCardsOnBoard()[i]->refreshTextPositions();
 		for (int j = 0; j < (*player1).getCardsOnBoard()[i]->getTextRectangles().size(); j++)
 		{
@@ -365,7 +375,6 @@ void Game::drawGame(sf::RenderWindow &window, Card *selectedCard, Card *cardToDi
 	// Display text on board
 	for (int i = 0; i < (*player1).getHand().size(); i++)
 	{
-		(*player1).getHand()[i]->refreshTextDatas();
 		std::vector<sf::Vector2f> textPositions = (*player1).getHand()[i]->refreshTextPositions();
 		for (int j = 0; j < (*player1).getHand()[i]->getTextRectangles().size(); j++)
 		{
@@ -389,6 +398,10 @@ void Game::drawGame(sf::RenderWindow &window, Card *selectedCard, Card *cardToDi
 		card->setPosition(((*hitboxes[2]).getPosition().x + (i * 100.f)), ((*hitboxes[2]).getPosition().y));
 		window.draw(*card);
 		(*player2).getCardsOnBoard()[i]->refreshTextDatas();
+		(*player2).getCardsOnBoard()[i]->getTextRectangles()[0].setString(std::to_string((*player2).getCardsOnBoard()[i]->getCostMana()));
+		(*player2).getCardsOnBoard()[i]->getTextRectangles()[1].setString(std::to_string((*player2).getCardsOnBoard()[i]->getAttack()));
+		Minion* minion = dynamic_cast<Minion*>((*player2).getCardsOnBoard()[i]);
+		(*player2).getCardsOnBoard()[i]->getTextRectangles()[2].setString(std::to_string(minion->getDefense()));
 		std::vector<sf::Vector2f> textPositions = (*player2).getCardsOnBoard()[i]->refreshTextPositions();
 		for (int j = 0; j < (*player2).getCardsOnBoard()[i]->getTextRectangles().size(); j++)
 		{
@@ -399,7 +412,6 @@ void Game::drawGame(sf::RenderWindow &window, Card *selectedCard, Card *cardToDi
 
 	for (int i = 0; i < (*player2).getHand().size(); i++)
 	{
-		(*player2).getHand()[i]->refreshTextDatas();
 		(*player2).getHand()[i]->refreshTextPositions();
 		for (int j = 0; j < (*player2).getHand()[i]->getTextRectangles().size(); j++)
 		{
