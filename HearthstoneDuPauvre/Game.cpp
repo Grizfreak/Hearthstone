@@ -126,7 +126,6 @@ void Game::displayGame()
 	player1->draw();
 	player2->getDeck().shuffle();
 	player2->draw();
-	player2->autogame();
 
 	if (!font.loadFromFile("./assets/arial.ttf"))
 	{
@@ -156,6 +155,7 @@ void Game::displayGame()
 						std::cout << "End turn" << std::endl;
 						(*player1).draw();
 						std::cout << "Player 1 hand size: " << (*player1).getHand().size() << std::endl;
+						this->board->getTurnManager().endturn();
 						
 					}
 				}

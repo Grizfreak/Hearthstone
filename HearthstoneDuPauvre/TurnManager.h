@@ -12,7 +12,7 @@ private:
 	int indexOfCurrentPlayer;
 	std::vector<Player*> listOfPlayers;
 public:
-	TurnManager();
+	TurnManager(std::vector<Player*> players);
 	void endturn();
 	~TurnManager();
 };

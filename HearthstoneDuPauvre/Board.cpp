@@ -1,7 +1,7 @@
 #include "Board.h"
 #include <iostream>
 
-Board::Board(Player player1, Bot player2, TurnManager turnManager, sf::Texture* backgroundTexture)
+Board::Board(Player player1, Bot player2, TurnManager *turnManager, sf::Texture* backgroundTexture)
 {
     this->player1 = player1;
 	this->player2 = player2;
@@ -44,7 +44,7 @@ sf::Sprite& Board::getBackground() {
 }
 
 TurnManager& Board::getTurnManager() {
-	return this->turnManager;
+	return *this->turnManager;
 }
 
 Board::~Board() {

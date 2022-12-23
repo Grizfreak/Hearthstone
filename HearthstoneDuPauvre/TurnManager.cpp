@@ -1,7 +1,6 @@
 #include "TurnManager.h"
 
-TurnManager::TurnManager()
-{
+TurnManager::TurnManager(std::vector<Player*> players):listOfPlayers(players) {
 	this->indexOfCurrentPlayer = 0;
 	this->currentPlayer = this->listOfPlayers.at(indexOfCurrentPlayer);
 }
