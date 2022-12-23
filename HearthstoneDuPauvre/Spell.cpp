@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "Spell.h"
-#include "Minion.h"
 
 
 Spell::Spell(std::string name, int attack, int costMana, std::string imagePath, std::vector<Effect*> effects)
@@ -16,16 +15,17 @@ void Spell::useOn(Card* card)
 {
 }
 
-void Spell::useOn(Player* player)
-{
-}
-
 void Spell::useOn(std::vector<Card*> listOfCards)
 {
 	for (Card* card : listOfCards)
 	{
 		this->useOn(card);
 	}
+}
+
+std::vector<Effect*> Spell::getEffects() const
+{
+	return this->effects;
 }
 
 Spell::~Spell() {
