@@ -39,10 +39,11 @@ Player::Player() {
 }
 
 Card* Player::draw() {
-	Card* card = deck->getOneCard();
-	hand.push_back(card);
-	return card;
-          
+	if (this->deck->getLenght() > 0) {
+		Card* card = deck->getOneCard();
+		this->hand.push_back(card);
+		return card;
+	}    
 }
 
 void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
