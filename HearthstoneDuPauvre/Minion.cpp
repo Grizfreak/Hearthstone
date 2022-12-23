@@ -102,6 +102,11 @@ void Minion::gainLife(int life)
 	this->defense += life;
 }
 
+int Minion::getDefense()
+{
+	return this->defense;
+}
+
 bool Minion::hasEffect()
 {
 	bool hasEffect = this->effects.size() > 0;

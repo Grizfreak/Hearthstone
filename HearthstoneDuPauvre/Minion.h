@@ -32,6 +32,7 @@ public:
 	/* Getters */
 	bool hasEffect();
 	std::vector<Effect*> getEffects();
+	int getDefense();
 	/* Redefined operators */
 	friend std::ostream& operator<<(std::ostream& os, const Minion& minion);
 	~Minion();

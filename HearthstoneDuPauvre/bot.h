@@ -10,7 +10,7 @@ class Bot : public Player{
 public:
 	Bot(std::string name, Deck* deck, sf::RectangleShape pHRect, sf::Vector2f position, sf::Color color);
 	Bot();
-	void autogame();
+	void play(Player* ennemy);
 	~Bot();
 
 };
