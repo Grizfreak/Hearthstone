@@ -38,6 +38,7 @@ public:
 	sf::RectangleShape& getPlayerHandRect();
 	std::vector<sf::Text>& getPlayerTexts();
 	sf::RectangleShape& getPlayerAvatar();
+	void erase(Minion* minion);
 	Deck& getDeck() const;
 	int getHealth();
 	void setHealth(int health);

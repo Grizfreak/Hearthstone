@@ -25,9 +25,20 @@ void Bot::play(Player* ennemy)
 	if (ennemy->getCardsOnBoard().size() != 0) {
 		for (Card* card : ennemy->getCardsOnBoard()) {
 			/* Cast the card into a minion */
-			Minion* minion = dynamic_cast<Minion*>(card);
-			if (minion->getDefense() <= this->getCardsOnBoard()[0]->getAttack()) {
-				this->getCardsOnBoard()[0]->useOn(minion);
+			Minion* ennemyMinion = dynamic_cast<Minion*>(card);
+			if (ennemyMinion->getDefense() <= this->getCardsOnBoard()[0]->getAttack()) {
+				this->getCardsOnBoard()[0]->useOn(ennemyMinion);
+				
+				Minion* minion = dynamic_cast<Minion*>(this->getCardsOnBoard()[0]);
+				
+				if (minion->getDefense() <= 0)
+				{
+					this->erase(minion);
+				}
+				if (ennemyMinion->getDefense() <= 0)
+				{
+					ennemy->erase(ennemyMinion);
+				}
 			}
 		}
 	}

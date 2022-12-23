@@ -12,6 +12,9 @@ Minion::Minion(std::string name, int attack, int costMana, std::string imagePath
 	this->defenseText = sf::Text(std::to_string(this->defense), this->font, 40);
 	this->defenseText.setFillColor(sf::Color::Green);
 	this->textRectangles.push_back(this->defenseText);
+	if (this->status == Status::RUSH_STATUS) {
+		this->setCanAttack(true);
+	}
 }
 
 Minion::Minion(std::string name, int attack, int costMana, std::string imagePath, int defense) : Card(name, attack, costMana, imagePath) {
@@ -31,6 +34,9 @@ Minion::Minion(std::string name, int attack, int costMana, std::string imagePath
 	this->defenseText = sf::Text(std::to_string(this->defense), this->font, 40);
 	this->defenseText.setFillColor(sf::Color::Green);
 	this->textRectangles.push_back(this->defenseText);
+	if (this->status == Status::RUSH_STATUS) {
+		this->setCanAttack(true);
+	}
 }
 
 Minion::Minion(std::string name, int attack, int costMana, std::string imagePath, int defense, std::vector<Effect*> effects)
@@ -46,16 +52,25 @@ Minion::Minion(std::string name, int attack, int costMana, std::string imagePath
 /* Methods */
 void Minion::useOn(Card* card)
 {
-	/* Cast the card into a minion so it can access it's following attributes */
-	Minion *minionToAttack = dynamic_cast<Minion*>(card);
+	/* If the card can attack */
+	if (this->getCanAttack() == true) {
+		/* Cast the card into a minion so it can access it's following attributes */
+		Minion* minionToAttack = dynamic_cast<Minion*>(card);
 
-	/* Console Input */
-	std::cout << "Minion " << this->getName() << " attacks " << minionToAttack->getName() + "\n";
-	std::cout << "Minion " << minionToAttack->getName() << " attacks " << this->getName() + "\n";
+		/* Console Input */
+		std::cout << "Minion " << this->getName() << " attacks " << minionToAttack->getName() + "\n";
+		std::cout << "Minion " << minionToAttack->getName() << " attacks " << this->getName() + "\n";
 
-	/* Each minion lose like by attacking each other */
-	minionToAttack->loseLife(this->getAttack());
-	this->loseLife(minionToAttack->getAttack());
+		/* Each minion lose like by attacking each other */
+		minionToAttack->loseLife(this->getAttack());
+		this->loseLife(minionToAttack->getAttack());
+
+		/* The card can't attack several times */
+		this->setCanAttack(false);
+	}
+	else {
+		std::cout << "The card can't attack on this turn";
+	}
 }
 
 void Minion::useOn(std::vector<Card*> listOfCards)

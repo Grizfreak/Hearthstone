@@ -62,7 +62,7 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 						{
 						case Bonus::DAMAGE_BOOST:
 							if (effect->getTarget() == Target::SINGLE) {
-								/* TODO for a single card*/
+								cardToTouch->setAttack(cardToTouch->getAttack() + effect->getValue());
 								if (cardToTouch != nullptr) {
 									std::cout << cardToTouch->getName() << std::endl;
 								}
@@ -75,13 +75,13 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 							break;
 						case Bonus::DAMAGE_MALUS:
 							if (effect->getTarget() == Target::SINGLE) {
-								/* TODO for a single card */
+								cardToTouch->setAttack(cardToTouch->getAttack() - effect->getValue());
 								if (cardToTouch != nullptr) {
 									std::cout << cardToTouch->getName() << std::endl;
 								}
 							}
 							else {
-								for (Card* card : enemy->hand) {
+								for (Card* card : enemy->getCardsOnBoard()) {
 									card->setAttack(card->getAttack() - effect->getValue());
 								}
 							}
@@ -114,7 +114,7 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 						{
 						case Bonus::DAMAGE_BOOST:
 							if (effect->getTarget() == Target::SINGLE) {
-								/* TODO for a single card*/
+								cardToTouch->setAttack(cardToTouch->getAttack() + effect->getValue());
 								if (cardToTouch != nullptr) {
 									std::cout << cardToTouch->getName() << std::endl;
 								}
@@ -127,13 +127,13 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 							break;
 						case Bonus::DAMAGE_MALUS:
 							if (effect->getTarget() == Target::SINGLE) {
-								/* TODO for a single card */
+								cardToTouch->setAttack(cardToTouch->getAttack() - effect->getValue());
 								if (cardToTouch != nullptr) {
 									std::cout << cardToTouch->getName() << std::endl;
 								}
 							}
 							else {
-								for (Card* card : enemy->hand) {
+								for (Card* card : enemy->getCardsOnBoard()) {
 									card->setAttack(card->getAttack() - effect->getValue());
 								}
 							}
@@ -196,6 +196,18 @@ std::vector<sf::Text>& Player::getPlayerTexts() {
 
 sf::RectangleShape& Player::getPlayerAvatar() {
 	return this->playerAvatar;
+}
+
+void Player::erase(Minion* minion)
+{
+	for (int i = 0; i < cardsOnBoard.size(); i++)
+	{
+		Minion* minionOnBoard = dynamic_cast<Minion*>(cardsOnBoard[i]);
+		if (minionOnBoard == minion)
+		{
+			cardsOnBoard.erase(cardsOnBoard.begin() + i);
+		}
+	}
 }
 
  Deck& Player::getDeck() const {

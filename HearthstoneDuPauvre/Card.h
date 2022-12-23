@@ -15,6 +15,7 @@ private:
 	sf::Texture cardTexture;
 	sf::Text costManaText;
 	sf::Text attackText;
+	bool canAttack;
 	
 protected:
 	sf::RectangleShape cardRectangle;
@@ -38,8 +39,10 @@ public:
 	std::vector<sf::Text>& getTextRectangles();
 	sf::RectangleShape& getCardRectangle();
 	std::string& getImagePath();
+	bool getCanAttack() const;
 	/* Setters */
 	void setAttack(int attack);
+	void setCanAttack(bool canAttack);
 	/* Destructor */
 	~Card();
 	/* Redefine Operator */

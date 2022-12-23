@@ -296,6 +296,16 @@ void Game::displayGame()
 								//Touche a card to attack
 								std::cout << "On card : " << *(*player2).getCardsOnBoard()[i] << std::endl;
 								selectedCard->useOn(player2->getCardsOnBoard()[i]);
+								Minion* minion = dynamic_cast<Minion*>(selectedCard);
+								Minion* ennemyMinion = dynamic_cast<Minion*>(player2->getCardsOnBoard()[i]);
+								if (minion->getDefense() <= 0)
+								{
+									(*player1).erase(minion);
+								}
+								if (ennemyMinion->getDefense() <= 0)
+								{
+									(*player2).erase(ennemyMinion);
+								}
 							}
 						}
 					}
@@ -363,7 +373,6 @@ void Game::drawGame(sf::RenderWindow &window, Card *selectedCard, Card *cardToDi
 		(*player1).getCardsOnBoard()[i]->getTextRectangles()[0].setString(std::to_string((*player1).getCardsOnBoard()[i]->getCostMana()));
 		(*player1).getCardsOnBoard()[i]->getTextRectangles()[1].setString(std::to_string((*player1).getCardsOnBoard()[i]->getAttack()));
 		Minion* minion = dynamic_cast<Minion*>((*player1).getCardsOnBoard()[i]);
-		std::cout << minion->getDefense();
 		(*player1).getCardsOnBoard()[i]->getTextRectangles()[2].setString(std::to_string(minion->getDefense()));
 		std::vector<sf::Vector2f> textPositions = (*player1).getCardsOnBoard()[i]->refreshTextPositions();
 		for (int j = 0; j < (*player1).getCardsOnBoard()[i]->getTextRectangles().size(); j++)
