@@ -15,6 +15,9 @@ Minion::Minion(std::string name, int attack, int costMana, std::string imagePath
 	if (this->status == Status::RUSH_STATUS) {
 		this->setCanAttack(true);
 	}
+	if (this->status == Status::DIVINE_SHIELD_STATUS) {
+		this->setDivineShield(true);
+	}
 }
 
 Minion::Minion(std::string name, int attack, int costMana, std::string imagePath, int defense) : Card(name, attack, costMana, imagePath) {
@@ -37,6 +40,9 @@ Minion::Minion(std::string name, int attack, int costMana, std::string imagePath
 	if (this->status == Status::RUSH_STATUS) {
 		this->setCanAttack(true);
 	}
+	if (this->status == Status::DIVINE_SHIELD_STATUS) {
+		this->setDivineShield(true);
+	}
 }
 
 Minion::Minion(std::string name, int attack, int costMana, std::string imagePath, int defense, std::vector<Effect*> effects)
@@ -57,13 +63,26 @@ void Minion::useOn(Card* card)
 		/* Cast the card into a minion so it can access it's following attributes */
 		Minion* minionToAttack = dynamic_cast<Minion*>(card);
 
-		/* Console Input */
-		std::cout << "Minion " << this->getName() << " attacks " << minionToAttack->getName() + "\n";
-		std::cout << "Minion " << minionToAttack->getName() << " attacks " << this->getName() + "\n";
-
-		/* Each minion lose like by attacking each other */
-		minionToAttack->loseLife(this->getAttack());
-		this->loseLife(minionToAttack->getAttack());
+		/* Console Input + Each minion lose like by attacking each other */
+		if (minionToAttack->getDivineShield() == false) {
+			std::cout << "Minion " << this->getName() << " attacks " << minionToAttack->getName() + "\n";
+			minionToAttack->loseLife(this->getAttack());
+		}
+		/* MinionToAttack owns a divine shield */
+		else {
+			std::cout << "Can't attack this minion because it owns a divine shield" << "\n";
+			minionToAttack->setDivineShield(false);
+		}
+		
+		if (this->getDivineShield() == false) {
+			std::cout << "Minion " << minionToAttack->getName() << " attacks " << this->getName() + "\n";
+			this->loseLife(minionToAttack->getAttack());
+		}
+		/* MinionToAttack owns a divine shield */
+		else {
+			std::cout << "Can't attack this minion because it owns a divine shield" << "\n";
+			this->setDivineShield(false);
+		}	
 
 		/* The card can't attack several times */
 		this->setCanAttack(false);

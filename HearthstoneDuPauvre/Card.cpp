@@ -76,6 +76,11 @@ bool Card::getCanAttack() const
 	return this->canAttack;
 }
 
+bool Card::getDivineShield() const
+{
+	return this->divineShield;
+}
+
 /* Setters */
 void Card::setAttack(int attack)
 {
@@ -85,6 +90,11 @@ void Card::setAttack(int attack)
 void Card::setCanAttack(bool canAttack)
 {
 	this->canAttack = canAttack;
+}
+
+void Card::setDivineShield(bool divineShield)
+{
+	this->divineShield = divineShield;
 }
 
 /* Desctructor */

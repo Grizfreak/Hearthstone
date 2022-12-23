@@ -16,6 +16,7 @@ private:
 	sf::Text costManaText;
 	sf::Text attackText;
 	bool canAttack;
+	bool divineShield;
 	
 protected:
 	sf::RectangleShape cardRectangle;
@@ -40,9 +41,11 @@ public:
 	sf::RectangleShape& getCardRectangle();
 	std::string& getImagePath();
 	bool getCanAttack() const;
+	bool getDivineShield() const;
 	/* Setters */
 	void setAttack(int attack);
 	void setCanAttack(bool canAttack);
+	void setDivineShield(bool divineShield);
 	/* Destructor */
 	~Card();
 	/* Redefine Operator */
