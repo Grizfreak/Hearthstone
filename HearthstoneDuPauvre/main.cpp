@@ -57,10 +57,6 @@ int main()
 
 	Player player1(name1, deck1, sf::RectangleShape(sf::Vector2f(350.f, 140.f)),sf::Vector2f(583.f, 850.f), sf::Color::Red);
 	Bot player2(name2, deck2, sf::RectangleShape(sf::Vector2f(350.f, 140.f)),sf::Vector2f(600.f,0.f), sf::Color::Blue);
-
-	player1.draw();
-	player1.draw();
-	player2.draw();
 	player2.autogame();
 	std::cout << player1.getHand().size() << std::endl;
 	TurnManager turnManager = TurnManager(player1);

@@ -117,12 +117,16 @@ void Game::displayGame()
 	sf::Vector2i starting_position;
 	sf::Vector2f current_position;
 	Player *player1 = &(board->getPlayer1());
-	Player *player2 = &(board->getPlayer2());
+	Bot *player2 = &(board->getPlayer2());
 	std::vector<sf::RectangleShape *> hitboxes = {&((*this->board).getJ1cardBoard()), &(*player1).getPlayerHandRect(), &((*this->board).getJ2cardBoard()), &(*player2).getPlayerHandRect()};
 	sf::Font font;
-
 	sf::RectangleShape buttonEndTurn = sf::RectangleShape(sf::Vector2f(150.f, 50.f));
 	buttonEndTurn.setPosition(1290, 400);
+	player1->getDeck().shuffle();
+	player1->draw();
+	player2->getDeck().shuffle();
+	player2->draw();
+	player2->autogame();
 
 	if (!font.loadFromFile("./assets/arial.ttf"))
 	{
@@ -148,9 +152,11 @@ void Game::displayGame()
 					std::cout << "Mouse position: " << event.mouseButton.x << " " << event.mouseButton.y << std::endl;
 					if (buttonEndTurn.getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
 					{
+						//ENDING TURN
 						std::cout << "End turn" << std::endl;
 						(*player1).draw();
 						std::cout << "Player 1 hand size: " << (*player1).getHand().size() << std::endl;
+						
 					}
 				}
 				if (event.mouseButton.button == sf::Mouse::Right)
@@ -226,10 +232,46 @@ void Game::displayGame()
 				if ((*hitboxes[0]).getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 				{
 					std::cout << "On board" << std::endl;
-					if (typeid(*selectedCard) == typeid(Minion))
-					{
-						(*player1).placeOnBoard(selectedCard, *player2);
+					if (typeid(*selectedCard) == typeid(Minion)) {
+						Minion* minion = dynamic_cast<Minion*>(selectedCard);
+						if (minion->hasEffect()) {
+							int cpt = 0;
+							for (int i = 0; i < minion->getEffects().size(); i++) {
+								if (minion->getEffects()[i]->getTarget() == SINGLE) {
+									cpt++;
+									break;
+								}
+							}
+							if (cpt == 0) {
+								(*player1).placeOnBoard(selectedCard, player2,nullptr);
+							}
+							else {
+								Card* cardTotouchWithEffect = waitforMouseInput(window, hitboxes, player1, player2);
+								player1->placeOnBoard(selectedCard, player2, cardTotouchWithEffect);
+							}
+						}
+						else {
+							(*player1).placeOnBoard(selectedCard, player2, nullptr);
+						}
 					}
+					else if (typeid(*selectedCard) == typeid(Spell)) {
+						Spell* spell = dynamic_cast<Spell*>(selectedCard);
+							int cpt = 0;
+							for (int i = 0; i < spell->getEffects().size(); i++) {
+								if (spell->getEffects()[i]->getTarget() == SINGLE) {
+									cpt++;
+									break;
+								}
+							}
+							if (cpt == 0) {
+								(*player1).placeOnBoard(selectedCard, player2, nullptr);
+							}
+							else {
+								Card* cardTotouchWithEffect = waitforMouseInput(window, hitboxes, player1, player2);
+								player1->placeOnBoard(selectedCard, player2, cardTotouchWithEffect);
+							}
+					}
+						
 					std::cout << (*player1).getHand().size() << std::endl;
 					if ((*player1).getCardsOnBoard().size() == 1)
 					{
@@ -273,7 +315,7 @@ void Game::displayGame()
 				holdingCard = false;
 			}
 		}
-
+		window.clear();
 		this->drawGame(window, selectedCard, cardToDisplay, hitboxes, font, buttonEndTurn);
 		this->displayTexts(window);
 		window.display();
@@ -282,7 +324,6 @@ void Game::displayGame()
 
 void Game::drawGame(sf::RenderWindow &window, Card *selectedCard, Card *cardToDisplay, std::vector<sf::RectangleShape *> hitboxes, sf::Font font, sf::RectangleShape buttonEndTurn)
 {
-	window.clear();
 	window.draw((*this->board).getBackground());
 	Player *player1 = &board->getPlayer1();
 	Player *player2 = &board->getPlayer2();
@@ -390,12 +431,59 @@ void Game::displayTexts(sf::RenderWindow &window)
 	(this->board->getPlayer1().getPlayerTexts()[1]).setPosition(1065, 870);
 	this->board->getPlayer1().getPlayerTexts()[1].setString(std::to_string(this->board->getPlayer1().getCurrentMana()) + "/" + std::to_string(this->board->getPlayer1().getMaxMana()));
 	sf::Text *lifeJ1Text = &this->board->getPlayer1().getPlayerTexts()[0];
+	lifeJ1Text->setString(std::to_string(this->board->getPlayer1().getHealth()));
 	(*lifeJ1Text).setPosition(790, 713);
-	sf::Text *lifeJ2Text = &this->board->getPlayer2().getPlayerTexts()[0];
+	sf::Text* lifeJ2Text = &this->board->getPlayer2().getPlayerTexts()[0];
+	lifeJ2Text->setString(std::to_string(this->board->getPlayer2().getHealth()));
 	(*lifeJ2Text).setPosition(790, 150);
 	window.draw(this->board->getPlayer1().getPlayerTexts()[1]);
 	window.draw(*lifeJ1Text);
 	window.draw(*lifeJ2Text);
+}
+
+Card* Game::waitforMouseInput(sf::RenderWindow& window, std::vector<sf::RectangleShape*> hitboxes, Player* player1, Player* player2) 
+{
+	sf::Event event;
+	if (player1->getCardsOnBoard().size() > 0 || player2->getCardsOnBoard().size() > 0) {
+		while (1) {
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::MouseButtonPressed)
+				{
+					if (event.mouseButton.button == sf::Mouse::Left)
+					{
+						if ((*hitboxes[2]).getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+						{
+							std::cout << "On board" << std::endl;
+							for (int i = 0; i < (*player2).getCardsOnBoard().size(); i++)
+							{
+								if ((*player2).getCardsOnBoard()[i]->getCardRectangle().getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+								{
+									std::cout << "On card : " << *(*player2).getCardsOnBoard()[i] << std::endl;
+									return (*player2).getCardsOnBoard()[i];
+								}
+							}
+						}
+						if ((*hitboxes[0]).getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+						{
+							std::cout << "On board" << std::endl;
+							for (int i = 0; i < (*player1).getCardsOnBoard().size(); i++)
+							{
+								if ((*player1).getCardsOnBoard()[i]->getCardRectangle().getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+								{
+									std::cout << "On card : " << *(*player1).getCardsOnBoard()[i] << std::endl;
+									return (*player1).getCardsOnBoard()[i];
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	else {
+		return nullptr;
+	}
 }
 
 Game::~Game()

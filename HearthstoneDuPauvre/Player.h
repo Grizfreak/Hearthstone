@@ -30,7 +30,7 @@ public:
 	Player(std::string name, Deck* deck, sf::RectangleShape pHRect, sf::Vector2f position, sf::Color color);
 	Player();
 	Card* draw();
-	void placeOnBoard(Card* card, Player enemy);
+	void placeOnBoard(Card* card, Player* enemy, Card* cardToTouch);
 	void incrementMaxmana();
 	void refreshTextDatas();
 	std::vector<Card*> getHand();
@@ -38,6 +38,7 @@ public:
 	sf::RectangleShape& getPlayerHandRect();
 	std::vector<sf::Text>& getPlayerTexts();
 	sf::RectangleShape& getPlayerAvatar();
+	Deck& getDeck() const;
 	int getHealth();
 	void setHealth(int health);
 	int getCurrentMana();

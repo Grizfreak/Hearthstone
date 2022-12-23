@@ -1,7 +1,7 @@
 #include "Board.h"
 #include <iostream>
 
-Board::Board(Player player1, Player player2, TurnManager turnManager, sf::Texture* backgroundTexture)
+Board::Board(Player player1, Bot player2, TurnManager turnManager, sf::Texture* backgroundTexture)
 {
     this->player1 = player1;
 	this->player2 = player2;
@@ -28,7 +28,7 @@ Player& Board::getPlayer1() {
 	return this->player1;
 }
 
-Player& Board::getPlayer2() {
+Bot& Board::getPlayer2() {
 	return this->player2;
 }
 
