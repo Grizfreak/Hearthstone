@@ -10,14 +10,14 @@
 class Board
 {
 private:
-	Player player1;
-	Bot player2;
+	Player* player1;
+	Bot* player2;
 	TurnManager* turnManager;
 	sf::RectangleShape j1cardBoard;
 	sf::RectangleShape j2cardBoard;
 	sf::Sprite background;
 public:
-	Board(Player player1, Bot player2, TurnManager* turnManager, sf::Texture* backgroundTexture);
+	Board(Player* player1, Bot* player2, TurnManager* turnManager, sf::Texture* backgroundTexture);
 	void dispawnCard(Card* card);
 	Player& getPlayer1();
 	Bot& getPlayer2();

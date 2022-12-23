@@ -14,5 +14,7 @@ private:
 public:
 	TurnManager(std::vector<Player*> players);
 	void endturn();
+	/* Getter */
+	Player* getCurrentPlayer();
 	~TurnManager();
 };

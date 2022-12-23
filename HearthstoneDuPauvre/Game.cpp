@@ -134,128 +134,129 @@ void Game::displayGame()
 	this->musicManager.playMusic(MusicEnum::DUELMUSIC, true);
 	while (window.isOpen())
 	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
+		if (this->board->getTurnManager().getCurrentPlayer() == player1) {
+			sf::Event event;
+			while (window.pollEvent(event))
 			{
-				this->musicManager.stopMusic(MusicEnum::DUELMUSIC);
-				window.close();
-			}
-
-			if (event.type == sf::Event::MouseButtonPressed)
-			{
-				if (event.mouseButton.button == sf::Mouse::Left)
+				if (event.type == sf::Event::Closed || event.key.code == sf::Keyboard::Escape)
 				{
-					// std::cout << "Mouse button pressed" << std::endl;
-					std::cout << "Mouse position: " << event.mouseButton.x << " " << event.mouseButton.y << std::endl;
-					if (buttonEndTurn.getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
+					this->musicManager.stopMusic(MusicEnum::DUELMUSIC);
+					window.close();
+				}
+
+				if (event.type == sf::Event::MouseButtonPressed)
+				{
+					if (event.mouseButton.button == sf::Mouse::Left)
 					{
-						//ENDING TURN
-						std::cout << "End turn" << std::endl;
-						(*player1).draw();
-						std::cout << "Player 1 hand size: " << (*player1).getHand().size() << std::endl;
-						this->board->getTurnManager().endturn();
-						
+						// std::cout << "Mouse button pressed" << std::endl;
+						std::cout << "Mouse position: " << event.mouseButton.x << " " << event.mouseButton.y << std::endl;
+						if (buttonEndTurn.getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
+						{
+							//ENDING TURN
+							std::cout << "End turn" << std::endl;
+							(*player1).draw();
+							std::cout << "Player 1 hand size: " << (*player1).getHand().size() << std::endl;
+							this->board->getTurnManager().endturn();
+
+						}
+					}
+					if (event.mouseButton.button == sf::Mouse::Right)
+					{
+						for (int i = 0; i < (*player1).getHand().size(); i++)
+						{
+							if ((*player1).getHand()[i]->getCardRectangle().getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
+							{
+								std::cout << "Mouse is on card" << std::endl;
+								cardToDisplay = (*player1).getHand()[i];
+							}
+						}
+						for (int i = 0; i < (*player2).getHand().size(); i++)
+						{
+							if ((*player2).getHand()[i]->getCardRectangle().getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
+							{
+								std::cout << "Mouse is on card" << std::endl;
+								cardToDisplay = (*player2).getHand()[i];
+							}
+						}
+						for (int i = 0; i < (*player1).getCardsOnBoard().size(); i++)
+						{
+							if ((*player1).getCardsOnBoard()[i]->getCardRectangle().getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
+							{
+								std::cout << "Mouse is on card" << std::endl;
+								cardToDisplay = (*player1).getCardsOnBoard()[i];
+							}
+						}
+						for (int i = 0; i < (*player2).getCardsOnBoard().size(); i++)
+						{
+							if ((*player2).getCardsOnBoard()[i]->getCardRectangle().getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
+							{
+								std::cout << "Mouse is on card" << std::endl;
+								cardToDisplay = (*player2).getCardsOnBoard()[i];
+							}
+						}
+						std::cout << *cardToDisplay << std::endl;
 					}
 				}
-				if (event.mouseButton.button == sf::Mouse::Right)
+				if (event.type == sf::Event::MouseMoved && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
 					for (int i = 0; i < (*player1).getHand().size(); i++)
 					{
-						if ((*player1).getHand()[i]->getCardRectangle().getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
+						if (((*player1).getHand()[i]->getCardRectangle()).getGlobalBounds().contains((float)event.mouseMove.x, (float)event.mouseMove.y) && !holdingCard)
 						{
-							std::cout << "Mouse is on card" << std::endl;
-							cardToDisplay = (*player1).getHand()[i];
-						}
-					}
-					for (int i = 0; i < (*player2).getHand().size(); i++)
-					{
-						if ((*player2).getHand()[i]->getCardRectangle().getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
-						{
-							std::cout << "Mouse is on card" << std::endl;
-							cardToDisplay = (*player2).getHand()[i];
+							holdingCard = true;
+							selectedCard = (*player1).getHand()[i];
 						}
 					}
 					for (int i = 0; i < (*player1).getCardsOnBoard().size(); i++)
 					{
-						if ((*player1).getCardsOnBoard()[i]->getCardRectangle().getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
+						if (((*player1).getCardsOnBoard()[i]->getCardRectangle()).getGlobalBounds().contains((float)event.mouseMove.x, (float)event.mouseMove.y) && !holdingAttack)
 						{
-							std::cout << "Mouse is on card" << std::endl;
-							cardToDisplay = (*player1).getCardsOnBoard()[i];
+							holdingAttack = true;
+							selectedCard = (*player1).getCardsOnBoard()[i];
+							std::cout << "Selected card: " << *selectedCard << std::endl;
 						}
 					}
-					for (int i = 0; i < (*player2).getCardsOnBoard().size(); i++)
+					if (holdingCard)
 					{
-						if ((*player2).getCardsOnBoard()[i]->getCardRectangle().getGlobalBounds().contains((float)sf::Mouse::getPosition(window).x, (float)sf::Mouse::getPosition(window).y))
-						{
-							std::cout << "Mouse is on card" << std::endl;
-							cardToDisplay = (*player2).getCardsOnBoard()[i];
-						}
-					}
-					std::cout << *cardToDisplay << std::endl;
-				}
-			}
-			if (event.type == sf::Event::MouseMoved && sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				for (int i = 0; i < (*player1).getHand().size(); i++)
-				{
-					if (((*player1).getHand()[i]->getCardRectangle()).getGlobalBounds().contains((float)event.mouseMove.x, (float)event.mouseMove.y) && !holdingCard)
-					{
-						holdingCard = true;
-						selectedCard = (*player1).getHand()[i];
+						// On récupère la position de la souris
+						// Avec ça on calcule la nouvelle position de la carte
+						// On la centre sur le pointeur de la souris (en gros on décale la carte de la moitié de sa taille)
+						current_position.x = event.mouseMove.x - 60.f;
+						current_position.y = event.mouseMove.y - 70.f;
+						(*selectedCard).getCardRectangle().setPosition(current_position);
 					}
 				}
-				for (int i = 0; i < (*player1).getCardsOnBoard().size(); i++)
+				if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left && (holdingCard || holdingAttack))
 				{
-					if (((*player1).getCardsOnBoard()[i]->getCardRectangle()).getGlobalBounds().contains((float)event.mouseMove.x, (float)event.mouseMove.y) && !holdingAttack)
-					{
-						holdingAttack = true;
-						selectedCard = (*player1).getCardsOnBoard()[i];
-						std::cout << "Selected card: " << *selectedCard << std::endl;
-					}
-				}
-				if (holdingCard)
-				{
-					// On récupère la position de la souris
-					// Avec ça on calcule la nouvelle position de la carte
-					// On la centre sur le pointeur de la souris (en gros on décale la carte de la moitié de sa taille)
-					current_position.x = event.mouseMove.x - 60.f;
-					current_position.y = event.mouseMove.y - 70.f;
-					(*selectedCard).getCardRectangle().setPosition(current_position);
-				}
-			}
-			if (event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left && (holdingCard || holdingAttack))
-			{
 
-				std::cout << "Released" << std::endl;
-				if ((*hitboxes[0]).getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
-				{
-					std::cout << "On board" << std::endl;
-					if (typeid(*selectedCard) == typeid(Minion)) {
-						Minion* minion = dynamic_cast<Minion*>(selectedCard);
-						if (minion->hasEffect()) {
-							int cpt = 0;
-							for (int i = 0; i < minion->getEffects().size(); i++) {
-								if (minion->getEffects()[i]->getTarget() == SINGLE) {
-									cpt++;
-									break;
+					std::cout << "Released" << std::endl;
+					if ((*hitboxes[0]).getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+					{
+						std::cout << "On board" << std::endl;
+						if (typeid(*selectedCard) == typeid(Minion)) {
+							Minion* minion = dynamic_cast<Minion*>(selectedCard);
+							if (minion->hasEffect()) {
+								int cpt = 0;
+								for (int i = 0; i < minion->getEffects().size(); i++) {
+									if (minion->getEffects()[i]->getTarget() == SINGLE) {
+										cpt++;
+										break;
+									}
+								}
+								if (cpt == 0) {
+									(*player1).placeOnBoard(selectedCard, player2, nullptr);
+								}
+								else {
+									Card* cardTotouchWithEffect = waitforMouseInput(window, hitboxes, player1, player2);
+									player1->placeOnBoard(selectedCard, player2, cardTotouchWithEffect);
 								}
 							}
-							if (cpt == 0) {
-								(*player1).placeOnBoard(selectedCard, player2,nullptr);
-							}
 							else {
-								Card* cardTotouchWithEffect = waitforMouseInput(window, hitboxes, player1, player2);
-								player1->placeOnBoard(selectedCard, player2, cardTotouchWithEffect);
+								(*player1).placeOnBoard(selectedCard, player2, nullptr);
 							}
 						}
-						else {
-							(*player1).placeOnBoard(selectedCard, player2, nullptr);
-						}
-					}
-					else if (typeid(*selectedCard) == typeid(Spell)) {
-						Spell* spell = dynamic_cast<Spell*>(selectedCard);
+						else if (typeid(*selectedCard) == typeid(Spell)) {
+							Spell* spell = dynamic_cast<Spell*>(selectedCard);
 							int cpt = 0;
 							for (int i = 0; i < spell->getEffects().size(); i++) {
 								if (spell->getEffects()[i]->getTarget() == SINGLE) {
@@ -270,50 +271,55 @@ void Game::displayGame()
 								Card* cardTotouchWithEffect = waitforMouseInput(window, hitboxes, player1, player2);
 								player1->placeOnBoard(selectedCard, player2, cardTotouchWithEffect);
 							}
+						}
+
+						std::cout << (*player1).getHand().size() << std::endl;
+						if ((*player1).getCardsOnBoard().size() == 1)
+						{
+							(*selectedCard).getCardRectangle().setPosition(((*hitboxes[0]).getPosition().x), (*hitboxes[0]).getPosition().y);
+						}
+						else
+						{
+							for (int i = 0; i < (*player1).getCardsOnBoard().size(); i++)
+							{
+								((*player1).getCardsOnBoard()[i]->getCardRectangle()).setPosition(((*hitboxes[0]).getPosition().x + (i * 100.f)), ((*hitboxes[0]).getPosition().y));
+							}
+						}
 					}
-						
-					std::cout << (*player1).getHand().size() << std::endl;
-					if ((*player1).getCardsOnBoard().size() == 1)
+					if ((*hitboxes[2]).getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 					{
-						(*selectedCard).getCardRectangle().setPosition(((*hitboxes[0]).getPosition().x), (*hitboxes[0]).getPosition().y);
+						std::cout << "On board" << std::endl;
+						for (int i = 0; i < (*player2).getCardsOnBoard().size(); i++)
+						{
+							if ((*player2).getCardsOnBoard()[i]->getCardRectangle().getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
+							{
+								std::cout << "On card : " << *(*player2).getCardsOnBoard()[i] << std::endl;
+							}
+						}
+					}
+					if ((*player2).getPlayerAvatar().getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y) && holdingAttack)
+					{
+						std::cout << "On player" << std::endl;
+					}
+					if ((*player1).getHand().size() == 1)
+					{
+						((*player1).getHand()[0]->getCardRectangle()).setPosition(hitboxes[1]->getPosition().x, hitboxes[1]->getPosition().y);
 					}
 					else
 					{
-						for (int i = 0; i < (*player1).getCardsOnBoard().size(); i++)
+						for (int i = 0; i < (*player1).getHand().size(); i++)
 						{
-							((*player1).getCardsOnBoard()[i]->getCardRectangle()).setPosition(((*hitboxes[0]).getPosition().x + (i * 100.f)), ((*hitboxes[0]).getPosition().y));
+							((*player1).getHand()[i]->getCardRectangle()).setPosition(hitboxes[1]->getPosition().x + (i * 100.f), hitboxes[1]->getPosition().y);
 						}
 					}
+					holdingAttack = false;
+					holdingCard = false;
 				}
-				if ((*hitboxes[2]).getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
-				{
-					std::cout << "On board" << std::endl;
-					for (int i = 0; i < (*player2).getCardsOnBoard().size(); i++)
-					{
-						if ((*player2).getCardsOnBoard()[i]->getCardRectangle().getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
-						{
-							std::cout << "On card : " << *(*player2).getCardsOnBoard()[i] << std::endl;
-						}
-					}
-				}
-				if ((*player2).getPlayerAvatar().getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y) && holdingAttack)
-				{
-					std::cout << "On player" << std::endl;
-				}
-				if ((*player1).getHand().size() == 1)
-				{
-					((*player1).getHand()[0]->getCardRectangle()).setPosition(hitboxes[1]->getPosition().x, hitboxes[1]->getPosition().y);
-				}
-				else
-				{
-					for (int i = 0; i < (*player1).getHand().size(); i++)
-					{
-						((*player1).getHand()[i]->getCardRectangle()).setPosition(hitboxes[1]->getPosition().x + (i * 100.f), hitboxes[1]->getPosition().y);
-					}
-				}
-				holdingAttack = false;
-				holdingCard = false;
 			}
+		}
+		else {
+			player2->play(player1);
+			this->board->getTurnManager().endturn();
 		}
 		window.clear();
 		this->drawGame(window, selectedCard, cardToDisplay, hitboxes, font, buttonEndTurn);
