@@ -9,6 +9,7 @@ Card::Card(std::string name, int attack, int costMana, std::string imagePath) {
 	this->name = name; 
 	this->attack = attack;
 	this->costMana = costMana;
+	this->canAttack = false;
 	this->cardRectangle = sf::RectangleShape(sf::Vector2f(140.f, 160.f));
 	this->imagePath = "./assets/cards/" + imagePath;
 	this->cardTexture = sf::Texture();
@@ -70,10 +71,30 @@ std::string& Card::getImagePath() {
 	return this->imagePath;
 }
 
+bool Card::getCanAttack() const
+{
+	return this->canAttack;
+}
+
+bool Card::getDivineShield() const
+{
+	return this->divineShield;
+}
+
 /* Setters */
 void Card::setAttack(int attack)
 {
 	this->attack = attack;
+}
+
+void Card::setCanAttack(bool canAttack)
+{
+	this->canAttack = canAttack;
+}
+
+void Card::setDivineShield(bool divineShield)
+{
+	this->divineShield = divineShield;
 }
 
 /* Desctructor */

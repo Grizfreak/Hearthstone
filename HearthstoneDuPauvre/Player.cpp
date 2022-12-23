@@ -55,6 +55,8 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 			if (typeid(*card) == typeid(Minion))
 			{
 				Minion* minion = dynamic_cast<Minion*>(card);
+				Minion* cardToTouchMinion = dynamic_cast<Minion*>(cardToTouch);
+				
 				if (minion->hasEffect()) {
 					for (Effect* effect : minion->getEffects())
 					{
@@ -62,7 +64,7 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 						{
 						case Bonus::DAMAGE_BOOST:
 							if (effect->getTarget() == Target::SINGLE) {
-								/* TODO for a single card*/
+								cardToTouch->setAttack(cardToTouch->getAttack() + effect->getValue());
 								if (cardToTouch != nullptr) {
 									std::cout << cardToTouch->getName() << std::endl;
 								}
@@ -75,14 +77,15 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 							break;
 						case Bonus::DAMAGE_MALUS:
 							if (effect->getTarget() == Target::SINGLE) {
-								/* TODO for a single card */
+								cardToTouchMinion->loseLife(effect->getValue());
 								if (cardToTouch != nullptr) {
 									std::cout << cardToTouch->getName() << std::endl;
 								}
 							}
 							else {
-								for (Card* card : enemy->hand) {
-									card->setAttack(card->getAttack() - effect->getValue());
+								for (Card* card : enemy->getCardsOnBoard()) {
+									Minion* minion = dynamic_cast<Minion*>(card);
+									minion->loseLife(effect->getValue());
 								}
 							}
 							break;
@@ -107,6 +110,7 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 			else if (typeid(*card) == typeid(Spell))
 			{
 				Spell* spell = dynamic_cast<Spell*>(card);
+				Minion* cardToTouchMinion = dynamic_cast<Minion*>(cardToTouch);
 
 					for (Effect* effect : spell->getEffects())
 					{
@@ -114,7 +118,7 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 						{
 						case Bonus::DAMAGE_BOOST:
 							if (effect->getTarget() == Target::SINGLE) {
-								/* TODO for a single card*/
+								cardToTouch->setAttack(cardToTouch->getAttack() + effect->getValue());
 								if (cardToTouch != nullptr) {
 									std::cout << cardToTouch->getName() << std::endl;
 								}
@@ -127,14 +131,15 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 							break;
 						case Bonus::DAMAGE_MALUS:
 							if (effect->getTarget() == Target::SINGLE) {
-								/* TODO for a single card */
+								cardToTouchMinion->loseLife(effect->getValue());
 								if (cardToTouch != nullptr) {
 									std::cout << cardToTouch->getName() << std::endl;
 								}
 							}
 							else {
-								for (Card* card : enemy->hand) {
-									card->setAttack(card->getAttack() - effect->getValue());
+								for (Card* card : enemy->getCardsOnBoard()) {
+									Minion* minion = dynamic_cast<Minion*>(card);
+									minion->loseLife(effect->getValue());
 								}
 							}
 							break;
@@ -196,6 +201,18 @@ std::vector<sf::Text>& Player::getPlayerTexts() {
 
 sf::RectangleShape& Player::getPlayerAvatar() {
 	return this->playerAvatar;
+}
+
+void Player::erase(Minion* minion)
+{
+	for (int i = 0; i < cardsOnBoard.size(); i++)
+	{
+		Minion* minionOnBoard = dynamic_cast<Minion*>(cardsOnBoard[i]);
+		if (minionOnBoard == minion)
+		{
+			cardsOnBoard.erase(cardsOnBoard.begin() + i);
+		}
+	}
 }
 
  Deck& Player::getDeck() const {

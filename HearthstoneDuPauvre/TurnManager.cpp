@@ -18,6 +18,11 @@ void TurnManager::endturn()
 
 	this->currentPlayer = this->listOfPlayers.at(indexOfCurrentPlayer);
 	this->currentPlayer->incrementMaxmana();
+
+	/* All Cards on board can now attack on the next turn */
+	for (int i = 0; i < this->currentPlayer->getCardsOnBoard().size(); i++) {
+		this->currentPlayer->getCardsOnBoard().at(i)->setCanAttack(true);
+	}
 }
 
 
