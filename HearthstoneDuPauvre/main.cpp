@@ -52,7 +52,9 @@ int main()
 
 	Deck* deck1 = new Deck(*deckGenerator.generateDeck1());
 	deck1->shuffle();
+	deck1->shuffle();
 	Deck* deck2 = new Deck(*deckGenerator.generateDeck2());
+	deck2->shuffle();
 	deck2->shuffle();
 
 	Player player1(name1, deck1, sf::RectangleShape(sf::Vector2f(350.f, 140.f)),sf::Vector2f(583.f, 850.f), sf::Color::Red);

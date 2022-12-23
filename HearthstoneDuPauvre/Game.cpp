@@ -108,17 +108,17 @@ Player *Game::checkWin()
 
 void Game::displayGame()
 {
-	Card *selectedCard = nullptr;
-	Card *cardToDisplay = nullptr;
-	Card *cardWhichAttack = nullptr;
+	Card* selectedCard = nullptr;
+	Card* cardToDisplay = nullptr;
+	Card* cardWhichAttack = nullptr;
 	sf::RenderWindow window(sf::VideoMode(1650, 950), "Wouhou compile !");
 	bool holdingCard = false;
 	bool holdingAttack = false;
 	sf::Vector2i starting_position;
 	sf::Vector2f current_position;
-	Player *player1 = &(board->getPlayer1());
-	Bot *player2 = &(board->getPlayer2());
-	std::vector<sf::RectangleShape *> hitboxes = {&((*this->board).getJ1cardBoard()), &(*player1).getPlayerHandRect(), &((*this->board).getJ2cardBoard()), &(*player2).getPlayerHandRect()};
+	Player* player1 = &(board->getPlayer1());
+	Bot* player2 = &(board->getPlayer2());
+	std::vector<sf::RectangleShape*> hitboxes = { &((*this->board).getJ1cardBoard()), &(*player1).getPlayerHandRect(), &((*this->board).getJ2cardBoard()), &(*player2).getPlayerHandRect() };
 	sf::Font font;
 	sf::RectangleShape buttonEndTurn = sf::RectangleShape(sf::Vector2f(150.f, 50.f));
 	buttonEndTurn.setPosition(1290, 400);
@@ -266,10 +266,22 @@ void Game::displayGame()
 							}
 							if (cpt == 0) {
 								(*player1).placeOnBoard(selectedCard, player2, nullptr);
+								std::cout << "Spell used on a group of card" << std::endl;
+								for (int i = 0; i < player2->getCardsOnBoard().size(); i++) {
+									Minion* minion = dynamic_cast<Minion*>(player2->getCardsOnBoard()[i]);
+									std::cout << "Minion: " << minion->getDefense() << std::endl;
+									if (minion->getDefense() <= 0) {
+										(*player2).erase(minion);
+									}
+								}
 							}
 							else {
 								Card* cardTotouchWithEffect = waitforMouseInput(window, hitboxes, player1, player2);
 								player1->placeOnBoard(selectedCard, player2, cardTotouchWithEffect);
+								Minion* minionToTouchWithEffect = dynamic_cast<Minion*>(cardTotouchWithEffect);
+								if (minionToTouchWithEffect->getDefense() <= 0) {
+									(*player2).erase(minionToTouchWithEffect);
+								}
 							}
 						}
 
@@ -310,7 +322,7 @@ void Game::displayGame()
 						}
 					}
 					if ((*player2).getPlayerAvatar().getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y) && holdingAttack)
-					{ 
+					{
 						//Touched player with attack TODO
 						std::cout << "On player" << std::endl;
 						//selectedCard->useOn(player2);

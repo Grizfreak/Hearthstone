@@ -55,6 +55,8 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 			if (typeid(*card) == typeid(Minion))
 			{
 				Minion* minion = dynamic_cast<Minion*>(card);
+				Minion* cardToTouchMinion = dynamic_cast<Minion*>(cardToTouch);
+				
 				if (minion->hasEffect()) {
 					for (Effect* effect : minion->getEffects())
 					{
@@ -75,14 +77,15 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 							break;
 						case Bonus::DAMAGE_MALUS:
 							if (effect->getTarget() == Target::SINGLE) {
-								cardToTouch->setAttack(cardToTouch->getAttack() - effect->getValue());
+								cardToTouchMinion->loseLife(effect->getValue());
 								if (cardToTouch != nullptr) {
 									std::cout << cardToTouch->getName() << std::endl;
 								}
 							}
 							else {
 								for (Card* card : enemy->getCardsOnBoard()) {
-									card->setAttack(card->getAttack() - effect->getValue());
+									Minion* minion = dynamic_cast<Minion*>(card);
+									minion->loseLife(effect->getValue());
 								}
 							}
 							break;
@@ -107,6 +110,7 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 			else if (typeid(*card) == typeid(Spell))
 			{
 				Spell* spell = dynamic_cast<Spell*>(card);
+				Minion* cardToTouchMinion = dynamic_cast<Minion*>(cardToTouch);
 
 					for (Effect* effect : spell->getEffects())
 					{
@@ -127,14 +131,15 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 							break;
 						case Bonus::DAMAGE_MALUS:
 							if (effect->getTarget() == Target::SINGLE) {
-								cardToTouch->setAttack(cardToTouch->getAttack() - effect->getValue());
+								cardToTouchMinion->loseLife(effect->getValue());
 								if (cardToTouch != nullptr) {
 									std::cout << cardToTouch->getName() << std::endl;
 								}
 							}
 							else {
 								for (Card* card : enemy->getCardsOnBoard()) {
-									card->setAttack(card->getAttack() - effect->getValue());
+									Minion* minion = dynamic_cast<Minion*>(card);
+									minion->loseLife(effect->getValue());
 								}
 							}
 							break;
