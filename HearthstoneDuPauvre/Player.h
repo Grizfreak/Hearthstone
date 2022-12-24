@@ -30,6 +30,7 @@ public:
 	Player(std::string name, Deck* deck, sf::RectangleShape pHRect, sf::Vector2f position, sf::Color color);
 	Player();
 	Card* draw();
+	void attackPlayerWithCard(Card* card, Player* enemy);
 	void placeOnBoard(Card* card, Player* enemy, Card* cardToTouch);
 	void incrementMaxmana();
 	void refreshTextDatas();

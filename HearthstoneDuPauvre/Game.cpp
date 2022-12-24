@@ -100,10 +100,21 @@ void Game::start()
 	// fonction qui lance le jeu
 }
 
-Player *Game::checkWin()
+Player* Game::checkWin()
 {
 	// fonction qui check si un joueur a gagné
-	return NULL;
+	if (this->board->getPlayer1().getHealth() <= 0)
+	{
+		return &this->board->getPlayer1();
+	}
+	else if (this->board->getPlayer2().getHealth() <= 0)
+	{
+		return &this->board->getPlayer2();
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 
 void Game::displayGame()
@@ -194,7 +205,11 @@ void Game::displayGame()
 								cardToDisplay = (*player2).getCardsOnBoard()[i];
 							}
 						}
-						std::cout << *cardToDisplay << std::endl;
+						if (cardToDisplay != nullptr)
+						{
+							std::cout << *cardToDisplay << std::endl;
+						}
+						
 					}
 				}
 				if (event.type == sf::Event::MouseMoved && sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -234,25 +249,27 @@ void Game::displayGame()
 					{
 						std::cout << "On board" << std::endl;
 						if (typeid(*selectedCard) == typeid(Minion)) {
-							Minion* minion = dynamic_cast<Minion*>(selectedCard);
-							if (minion->hasEffect()) {
-								int cpt = 0;
-								for (int i = 0; i < minion->getEffects().size(); i++) {
-									if (minion->getEffects()[i]->getTarget() == SINGLE) {
-										cpt++;
-										break;
+							if (player1->getCardsOnBoard().size() < 7) {
+								Minion* minion = dynamic_cast<Minion*>(selectedCard);
+								if (minion->hasEffect()) {
+									int cpt = 0;
+									for (int i = 0; i < minion->getEffects().size(); i++) {
+										if (minion->getEffects()[i]->getTarget() == SINGLE) {
+											cpt++;
+											break;
+										}
+									}
+									if (cpt == 0) {
+										(*player1).placeOnBoard(selectedCard, player2, nullptr);
+									}
+									else {
+										Card* cardTotouchWithEffect = waitforMouseInput(window, hitboxes, player1, player2);
+										player1->placeOnBoard(selectedCard, player2, cardTotouchWithEffect);
 									}
 								}
-								if (cpt == 0) {
+								else {
 									(*player1).placeOnBoard(selectedCard, player2, nullptr);
 								}
-								else {
-									Card* cardTotouchWithEffect = waitforMouseInput(window, hitboxes, player1, player2);
-									player1->placeOnBoard(selectedCard, player2, cardTotouchWithEffect);
-								}
-							}
-							else {
-								(*player1).placeOnBoard(selectedCard, player2, nullptr);
 							}
 						}
 						else if (typeid(*selectedCard) == typeid(Spell)) {
@@ -294,7 +311,7 @@ void Game::displayGame()
 						{
 							for (int i = 0; i < (*player1).getCardsOnBoard().size(); i++)
 							{
-								((*player1).getCardsOnBoard()[i]->getCardRectangle()).setPosition(((*hitboxes[0]).getPosition().x + (i * 100.f)), ((*hitboxes[0]).getPosition().y));
+								((*player1).getCardsOnBoard()[i]->getCardRectangle()).setPosition(((*hitboxes[0]).getPosition().x + (i * 135.f)), ((*hitboxes[0]).getPosition().y));
 							}
 						}
 					}
@@ -305,27 +322,40 @@ void Game::displayGame()
 						{
 							if ((*player2).getCardsOnBoard()[i]->getCardRectangle().getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y))
 							{
-								//Touche a card to attack
+								//Touch a card to attack
 								std::cout << "On card : " << *(*player2).getCardsOnBoard()[i] << std::endl;
-								selectedCard->useOn(player2->getCardsOnBoard()[i]);
-								Minion* minion = dynamic_cast<Minion*>(selectedCard);
-								Minion* ennemyMinion = dynamic_cast<Minion*>(player2->getCardsOnBoard()[i]);
-								if (minion->getDefense() <= 0)
+								if (selectedCard->getCanAttack())
 								{
-									(*player1).erase(minion);
-								}
-								if (ennemyMinion->getDefense() <= 0)
-								{
-									(*player2).erase(ennemyMinion);
+									selectedCard->useOn(player2->getCardsOnBoard()[i]);
+									Minion* minion = dynamic_cast<Minion*>(selectedCard);
+									Minion* ennemyMinion = dynamic_cast<Minion*>(player2->getCardsOnBoard()[i]);
+									if (minion->getDefense() <= 0)
+									{
+										(*player1).erase(minion);
+									}
+									if (ennemyMinion->getDefense() <= 0)
+									{
+										(*player2).erase(ennemyMinion);
+									}
 								}
 							}
 						}
 					}
 					if ((*player2).getPlayerAvatar().getGlobalBounds().contains((float)event.mouseButton.x, (float)event.mouseButton.y) && holdingAttack)
 					{
-						//Touched player with attack TODO
 						std::cout << "On player" << std::endl;
-						//selectedCard->useOn(player2);
+						if (selectedCard->getCanAttack())
+						{
+							player1->attackPlayerWithCard(selectedCard, player2);
+							Player* player = this->checkWin();
+							if (player != nullptr)
+							{
+								std::cout << "Player" << " won the game" << std::endl;
+								window.close();
+								return;
+							}
+						}
+						
 					}
 					if ((*player1).getHand().size() == 1)
 					{
@@ -335,7 +365,7 @@ void Game::displayGame()
 					{
 						for (int i = 0; i < (*player1).getHand().size(); i++)
 						{
-							((*player1).getHand()[i]->getCardRectangle()).setPosition(hitboxes[1]->getPosition().x + (i * 100.f), hitboxes[1]->getPosition().y);
+							((*player1).getHand()[i]->getCardRectangle()).setPosition(hitboxes[1]->getPosition().x + (i * 135.f), hitboxes[1]->getPosition().y);
 						}
 					}
 					holdingAttack = false;
@@ -366,7 +396,7 @@ void Game::drawGame(sf::RenderWindow &window, Card *selectedCard, Card *cardToDi
 		if ((*player1).getHand()[i] != selectedCard)
 		{
 			sf::RectangleShape *card = &(*player1).getHand()[i]->getCardRectangle();
-			card->setPosition(hitboxes[1]->getPosition().x + (i * 100.f), hitboxes[1]->getPosition().y);
+			card->setPosition(hitboxes[1]->getPosition().x + (i * 135.f), hitboxes[1]->getPosition().y);
 			window.draw(*card);
 		}
 		else
@@ -378,7 +408,7 @@ void Game::drawGame(sf::RenderWindow &window, Card *selectedCard, Card *cardToDi
 	for (int i = 0; i < (*player1).getCardsOnBoard().size(); i++)
 	{
 		sf::RectangleShape *card = &(*player1).getCardsOnBoard()[i]->getCardRectangle();
-		card->setPosition(((*hitboxes[0]).getPosition().x + (i * 100.f)), ((*hitboxes[0]).getPosition().y));
+		card->setPosition(((*hitboxes[0]).getPosition().x + (i * 135.f)), ((*hitboxes[0]).getPosition().y));
 		window.draw(*card);
 		(*player1).getCardsOnBoard()[i]->refreshTextDatas();
 		(*player1).getCardsOnBoard()[i]->refreshTextDatas();
@@ -408,7 +438,7 @@ void Game::drawGame(sf::RenderWindow &window, Card *selectedCard, Card *cardToDi
 	for (int i = 0; i < (*player2).getHand().size(); i++)
 	{
 		sf::RectangleShape *card = &(*player2).getHand()[i]->getCardRectangle();
-		card->setPosition(hitboxes[3]->getPosition().x + (i * 100.f), hitboxes[3]->getPosition().y);
+		card->setPosition(hitboxes[3]->getPosition().x + (i * 135.f), hitboxes[3]->getPosition().y);
 		window.draw(*card);
 	}
 
@@ -416,7 +446,7 @@ void Game::drawGame(sf::RenderWindow &window, Card *selectedCard, Card *cardToDi
 	for (int i = 0; i < (*player2).getCardsOnBoard().size(); i++)
 	{
 		sf::RectangleShape *card = &(*player2).getCardsOnBoard()[i]->getCardRectangle();
-		card->setPosition(((*hitboxes[2]).getPosition().x + (i * 100.f)), ((*hitboxes[2]).getPosition().y));
+		card->setPosition(((*hitboxes[2]).getPosition().x + (i * 135.f)), ((*hitboxes[2]).getPosition().y));
 		window.draw(*card);
 		(*player2).getCardsOnBoard()[i]->refreshTextDatas();
 		(*player2).getCardsOnBoard()[i]->getTextRectangles()[0].setString(std::to_string((*player2).getCardsOnBoard()[i]->getCostMana()));
@@ -434,10 +464,6 @@ void Game::drawGame(sf::RenderWindow &window, Card *selectedCard, Card *cardToDi
 	for (int i = 0; i < (*player2).getHand().size(); i++)
 	{
 		(*player2).getHand()[i]->refreshTextPositions();
-		for (int j = 0; j < (*player2).getHand()[i]->getTextRectangles().size(); j++)
-		{
-			window.draw((*player2).getHand()[i]->getTextRectangles()[j]);
-		}
 	}
 
 	for (int i = 0; i < hitboxes.size(); i++)

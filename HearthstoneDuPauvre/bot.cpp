@@ -19,7 +19,65 @@ void Bot::play(Player* ennemy)
 	this->draw();
 
 	/* Play the first card in the hand */
-	this->placeOnBoard(this->getHand()[0], ennemy, nullptr);
+	if (this->getHand().size() > 0) {
+		Card* selectedCard = this->getHand()[0];
+		if (this->getCardsOnBoard().size() < 7 && typeid(*selectedCard) == typeid(Minion)) {
+				Minion* minion = dynamic_cast<Minion*>(selectedCard);
+				if (minion->hasEffect()) {
+					int cpt = 0;
+					for (int i = 0; i < minion->getEffects().size(); i++) {
+						if (minion->getEffects()[i]->getTarget() == SINGLE) {
+							cpt++;
+							break;
+						}
+					}
+					if (cpt == 0) {
+						this->placeOnBoard(this->getHand()[0], ennemy, nullptr);
+					}
+					else {
+						if (ennemy->getCardsOnBoard().size() > 0) {
+							Card* cardTotouchWithEffect = ennemy->getCardsOnBoard()[0];
+							this->placeOnBoard(selectedCard, ennemy, cardTotouchWithEffect);
+						}
+					}
+				}
+				else {
+					this->placeOnBoard(this->getHand()[0], ennemy, nullptr);
+				}
+			
+		}
+		else if (typeid(*selectedCard) == typeid(Spell)) {
+			Spell* spell = dynamic_cast<Spell*>(selectedCard);
+			int cpt = 0;
+			for (int i = 0; i < spell->getEffects().size(); i++) {
+				if (spell->getEffects()[i]->getTarget() == SINGLE) {
+					cpt++;
+					break;
+				}
+			}
+			if (cpt == 0) {
+				this->placeOnBoard(this->getHand()[0], ennemy, nullptr);
+				std::cout << "Spell used on a group of card" << std::endl;
+				for (int i = 0; i < ennemy->getCardsOnBoard().size(); i++) {
+					Minion* minion = dynamic_cast<Minion*>(ennemy->getCardsOnBoard()[i]);
+					std::cout << "Minion: " << minion->getDefense() << std::endl;
+					if (minion->getDefense() <= 0) {
+						(*ennemy).erase(minion);
+					}
+				}
+			}
+			else {
+				if (ennemy->getCardsOnBoard().size() > 0) {
+					Card* cardTotouchWithEffect = ennemy->getCardsOnBoard()[0];
+					this->placeOnBoard(selectedCard, ennemy, cardTotouchWithEffect);
+					Minion* minionToTouchWithEffect = dynamic_cast<Minion*>(cardTotouchWithEffect);
+					if (minionToTouchWithEffect->getDefense() <= 0) {
+						(*ennemy).erase(minionToTouchWithEffect);
+					}
+				}
+			}
+		}
+	}
 
 	/* Attack the ennemy card to be sure to kill */
 	if (ennemy->getCardsOnBoard().size() != 0) {
