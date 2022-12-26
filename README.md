@@ -9,7 +9,7 @@ Dans le cadre de nos études à l'ESIEA et de notre cours de programmation orien
 
 # Logiciels & Framework utilisés
 
-Nous avons décidé d'utiliser le C++ par sa proximité avec l'orienté objet et Visual Studio pour réaliser ce projet. Nous utiliserons également Git et Github afin de partager notre code et de pouvoir travailler sereinnement chacun de notre côté sur notre branche avant de mettre en commun nos modifications. Afin d'inclure un côté graphique et pour améliorer l'expérience utilisateur, nous avons décidé d'ajouter un côté graphique au jeu à l'aide de la librairie SFML.
+Nous avons décidé d'utiliser le C++ par sa proximité avec l'orienté objet et Visual Studio pour réaliser ce projet. Nous utiliserons également Git et Github afin de partager notre code et de pouvoir travailler sereinement chacun de notre côté sur notre branche avant de mettre en commun nos modifications. Afin d'inclure un côté graphique et pour améliorer l'expérience utilisateur, nous avons décidé d'ajouter un côté graphique au jeu à l'aide de la librairie SFML.
 
 # Conception
 
