@@ -13,7 +13,9 @@ Nous avons décidé d'utiliser le C++ par sa proximité avec l'orienté objet et
 
 # Conception
 
-Nous devions avant de commencer à coder réaliser un diagramme de classe pour avoir une vue d'ensemble du projet, nous l'avons réaliser avec le logiciel StarUML :
+Nous devions avant de commencer à coder réaliser un diagramme de classe pour avoir une vue d'ensemble du projet, nous l'avons réalisé avec le logiciel StarUML :
+
+![](https://github.com/Grizfreak/Hearthstone/blob/Readme-update/UML/diagramme_de_classe_Hearthstone.png)
 
 # Règles du jeu
 
