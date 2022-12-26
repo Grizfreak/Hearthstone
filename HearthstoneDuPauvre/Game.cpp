@@ -350,7 +350,14 @@ void Game::displayGame()
 							Player* player = this->checkWin();
 							if (player != nullptr)
 							{
-								std::cout << "Player" << " won the game" << std::endl;
+								if (player == player1)
+								{
+									std::cout << "Player 1 win" << std::endl;
+								}
+								else
+								{
+									std::cout << "Bot win" << std::endl;
+								}
 								window.close();
 								return;
 							}
