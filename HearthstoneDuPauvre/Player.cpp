@@ -39,11 +39,19 @@ Player::Player() {
 }
 
 Card* Player::draw() {
-	if (this->deck->getLenght() > 0) {
+	if (this->deck->getLenght() > 0 && this->hand.size() < 10) {
 		Card* card = deck->getOneCard();
 		this->hand.push_back(card);
 		return card;
-	}    
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
+void Player::attackPlayerWithCard(Card* card, Player* enemy) {
+	enemy->setHealth(enemy->getHealth() - card->getAttack());
 }
 
 void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
@@ -118,8 +126,8 @@ void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
 						{
 						case Bonus::DAMAGE_BOOST:
 							if (effect->getTarget() == Target::SINGLE) {
-								cardToTouch->setAttack(cardToTouch->getAttack() + effect->getValue());
 								if (cardToTouch != nullptr) {
+									cardToTouch->setAttack(cardToTouch->getAttack() + effect->getValue());
 									std::cout << cardToTouch->getName() << std::endl;
 								}
 							}

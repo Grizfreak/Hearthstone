@@ -3,7 +3,6 @@
 #include <vector>
 
 #include "Card.h"
-#include "Player.h"
 
 class Spell : public Card
 {
