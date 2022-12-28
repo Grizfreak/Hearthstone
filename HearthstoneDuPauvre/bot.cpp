@@ -14,8 +14,7 @@ void Bot::play(Player* ennemy)
 {
 	std::cout << "Bot is playing" << std::endl;
 
-	std::cout << this->deck->getLenght();
-
+	/* First, bot draw a card */
 	this->draw();
 
 	/* Play the first card in the hand */
@@ -79,24 +78,29 @@ void Bot::play(Player* ennemy)
 		}
 	}
 
-	/* Attack the ennemy card to be sure to kill */
+	/* Attack the first ennemy card */
 	if (ennemy->getCardsOnBoard().size() != 0) {
-		for (Card* card : ennemy->getCardsOnBoard()) {
-			/* Cast the card into a minion */
-			Minion* ennemyMinion = dynamic_cast<Minion*>(card);
-			if (ennemyMinion->getDefense() <= this->getCardsOnBoard()[0]->getAttack()) {
-				this->getCardsOnBoard()[0]->useOn(ennemyMinion);
+		/* Cast the card into a minion */
+		Minion* ennemyMinion = dynamic_cast<Minion*>(ennemy->getCardsOnBoard()[0]);
+		this->getCardsOnBoard()[0]->useOn(ennemyMinion);	
+		
+		Minion* minion = dynamic_cast<Minion*>(this->getCardsOnBoard()[0]);
 				
-				Minion* minion = dynamic_cast<Minion*>(this->getCardsOnBoard()[0]);
-				
-				if (minion->getDefense() <= 0)
-				{
-					this->erase(minion);
-				}
-				if (ennemyMinion->getDefense() <= 0)
-				{
-					ennemy->erase(ennemyMinion);
-				}
+		if (minion->getDefense() <= 0)
+		{
+			this->erase(minion);
+		}
+		if (ennemyMinion->getDefense() <= 0)
+		{
+			ennemy->erase(ennemyMinion);
+		}
+	}
+
+	/* If nothing is on the board, attack the player with all the cards on board */
+	else {
+		for (int k = 0; k < this->getCardsOnBoard().size(); k++) {
+			if (this->getCardsOnBoard()[k]->getCanAttack()) {
+				this->attackPlayerWithCard(this->getCardsOnBoard()[k], ennemy);
 			}
 		}
 	}

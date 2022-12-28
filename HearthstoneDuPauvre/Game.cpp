@@ -387,6 +387,20 @@ void Game::displayGame()
 		else {
 			player2->play(player1);
 			this->board->getTurnManager().endturn();
+			Player* player = this->checkWin();
+			if (player != nullptr)
+			{
+				if (player == player1)
+				{
+					std::cout << "Player 1 win" << std::endl;
+				}
+				else
+				{
+					std::cout << "Bot win" << std::endl;
+				}
+				window.close();
+				return;
+			}
 		}
 		window.clear();
 		this->drawGame(window, selectedCard, cardToDisplay, hitboxes, font, buttonEndTurn);
