@@ -51,7 +51,10 @@ Card* Player::draw() {
 }
 
 void Player::attackPlayerWithCard(Card* card, Player* enemy) {
-	enemy->setHealth(enemy->getHealth() - card->getAttack());
+	if (card->getCanAttack()) {
+		enemy->setHealth(enemy->getHealth() - card->getAttack());
+		card->setCanAttack(false);
+	}
 }
 
 void Player::placeOnBoard(Card* card, Player* enemy, Card* cardToTouch) {
