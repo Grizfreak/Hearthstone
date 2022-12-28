@@ -134,9 +134,13 @@ void Game::displayGame()
 	sf::RectangleShape buttonEndTurn = sf::RectangleShape(sf::Vector2f(150.f, 50.f));
 	buttonEndTurn.setPosition(1290, 400);
 	player1->getDeck().shuffle();
-	player1->draw();
 	player2->getDeck().shuffle();
-	player2->draw();
+
+	/* At the beginning both players have 4 cards in their hands */
+	for (int j = 0; j < 4; j++) {
+		player1->draw();
+		player2->draw();
+	}
 
 	if (!font.loadFromFile("./assets/arial.ttf"))
 	{
