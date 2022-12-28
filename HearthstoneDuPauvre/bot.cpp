@@ -54,6 +54,7 @@ void Bot::play(Player* ennemy)
 					break;
 				}
 			}
+			std::cout << "cpt : " << cpt << std::endl;
 			if (cpt == 0) {
 				this->placeOnBoard(this->getHand()[0], ennemy, nullptr);
 				std::cout << "Spell used on a group of card" << std::endl;
@@ -68,11 +69,15 @@ void Bot::play(Player* ennemy)
 			else {
 				if (ennemy->getCardsOnBoard().size() > 0) {
 					Card* cardTotouchWithEffect = ennemy->getCardsOnBoard()[0];
+					std::cout << cardTotouchWithEffect->getName();
 					this->placeOnBoard(selectedCard, ennemy, cardTotouchWithEffect);
+					std::cout << "After placeOnBoard";
 					Minion* minionToTouchWithEffect = dynamic_cast<Minion*>(cardTotouchWithEffect);
+					std::cout << "After cast";
 					if (minionToTouchWithEffect->getDefense() <= 0) {
 						(*ennemy).erase(minionToTouchWithEffect);
 					}
+					std::cout << "End of spell" << std::endl;
 				}
 			}
 		}
@@ -82,7 +87,7 @@ void Bot::play(Player* ennemy)
 	if (ennemy->getCardsOnBoard().size() != 0) {
 		/* Cast the card into a minion */
 		Minion* ennemyMinion = dynamic_cast<Minion*>(ennemy->getCardsOnBoard()[0]);
-		this->getCardsOnBoard()[0]->useOn(ennemyMinion);	
+		this->getCardsOnBoard()[0]->useOn(ennemyMinion);
 		
 		Minion* minion = dynamic_cast<Minion*>(this->getCardsOnBoard()[0]);
 				
