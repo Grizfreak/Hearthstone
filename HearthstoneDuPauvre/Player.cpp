@@ -186,6 +186,7 @@ void Player::incrementMaxmana() {
 		maxMana++;
 		currentMana = maxMana;
 	}
+	currentMana = maxMana;
 }
 
 void Player::refreshTextDatas() {
