@@ -14,8 +14,7 @@ void Bot::play(Player* ennemy)
 {
 	std::cout << "Bot is playing" << std::endl;
 
-	std::cout << this->deck->getLenght();
-
+	/* First, bot draw a card */
 	this->draw();
 
 	/* Play the first card in the hand */
@@ -55,6 +54,7 @@ void Bot::play(Player* ennemy)
 					break;
 				}
 			}
+			std::cout << "cpt : " << cpt << std::endl;
 			if (cpt == 0) {
 				this->placeOnBoard(this->getHand()[0], ennemy, nullptr);
 				std::cout << "Spell used on a group of card" << std::endl;
@@ -69,34 +69,43 @@ void Bot::play(Player* ennemy)
 			else {
 				if (ennemy->getCardsOnBoard().size() > 0) {
 					Card* cardTotouchWithEffect = ennemy->getCardsOnBoard()[0];
+					std::cout << cardTotouchWithEffect->getName();
 					this->placeOnBoard(selectedCard, ennemy, cardTotouchWithEffect);
+					std::cout << "After placeOnBoard";
 					Minion* minionToTouchWithEffect = dynamic_cast<Minion*>(cardTotouchWithEffect);
+					std::cout << "After cast";
 					if (minionToTouchWithEffect->getDefense() <= 0) {
 						(*ennemy).erase(minionToTouchWithEffect);
 					}
+					std::cout << "End of spell" << std::endl;
 				}
 			}
 		}
 	}
 
-	/* Attack the ennemy card to be sure to kill */
+	/* Attack the first ennemy card */
 	if (ennemy->getCardsOnBoard().size() != 0) {
-		for (Card* card : ennemy->getCardsOnBoard()) {
-			/* Cast the card into a minion */
-			Minion* ennemyMinion = dynamic_cast<Minion*>(card);
-			if (ennemyMinion->getDefense() <= this->getCardsOnBoard()[0]->getAttack()) {
-				this->getCardsOnBoard()[0]->useOn(ennemyMinion);
+		/* Cast the card into a minion */
+		Minion* ennemyMinion = dynamic_cast<Minion*>(ennemy->getCardsOnBoard()[0]);
+		this->getCardsOnBoard()[0]->useOn(ennemyMinion);
+		
+		Minion* minion = dynamic_cast<Minion*>(this->getCardsOnBoard()[0]);
 				
-				Minion* minion = dynamic_cast<Minion*>(this->getCardsOnBoard()[0]);
-				
-				if (minion->getDefense() <= 0)
-				{
-					this->erase(minion);
-				}
-				if (ennemyMinion->getDefense() <= 0)
-				{
-					ennemy->erase(ennemyMinion);
-				}
+		if (minion->getDefense() <= 0)
+		{
+			this->erase(minion);
+		}
+		if (ennemyMinion->getDefense() <= 0)
+		{
+			ennemy->erase(ennemyMinion);
+		}
+	}
+
+	/* If nothing is on the board, attack the player with all the cards on board */
+	else {
+		for (int k = 0; k < this->getCardsOnBoard().size(); k++) {
+			if (this->getCardsOnBoard()[k]->getCanAttack()) {
+				this->attackPlayerWithCard(this->getCardsOnBoard()[k], ennemy);
 			}
 		}
 	}
