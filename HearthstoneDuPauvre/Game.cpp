@@ -105,11 +105,11 @@ Player* Game::checkWin()
 	// fonction qui check si un joueur a gagné
 	if (this->board->getPlayer1().getHealth() <= 0)
 	{
-		return &this->board->getPlayer1();
+		return &this->board->getPlayer2();
 	}
 	else if (this->board->getPlayer2().getHealth() <= 0)
 	{
-		return &this->board->getPlayer2();
+		return &this->board->getPlayer1();
 	}
 	else
 	{
