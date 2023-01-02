@@ -20,6 +20,7 @@ public:
 	void drawGame(sf::RenderWindow& window, Card* selectedCard, Card* cardToDisplay, std::vector<sf::RectangleShape*> hitboxes, sf::Font font, sf::RectangleShape buttonEndTurn);
 	void displayTexts(sf::RenderWindow& window);
 	Card* waitforMouseInput(sf::RenderWindow& window, std::vector<sf::RectangleShape*> hitboxes, Player* player1, Player* player2);
+	void drawWin(sf::RenderWindow& window, Player* player, sf::Font font);
 	~Game();
 };
 	
