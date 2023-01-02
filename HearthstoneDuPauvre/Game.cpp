@@ -356,17 +356,52 @@ void Game::displayGame()
 							{
 								if (player == player1)
 								{
+									sf::RectangleShape rectangle(sf::Vector2f(200, 100));
+									rectangle.setFillColor(sf::Color::Red);
+									rectangle.setPosition(740, 420);
+									sf::Text text;
+									text.setFont(font);
+									text.setString("Player 1 win");
+									text.setCharacterSize(24);
+									text.setFillColor(sf::Color::White);
+									text.setPosition(760, 450);
+									window.draw(text);
+									window.display();
+									while (window.isOpen()) {
+										sf::Event event;
+										while (window.pollEvent(event))
+										{
+											if (event.type == sf::Event::Closed)
+												window.close();
+										}
+									}
 									std::cout << "Player 1 win" << std::endl;
 								}
 								else
 								{
+									sf::RectangleShape rectangle(sf::Vector2f(200, 100));
+									rectangle.setFillColor(sf::Color::Red);
+									rectangle.setPosition(740, 420);
+									sf::Text text;
+									text.setFont(font);
+									text.setString("Bot win");
+									text.setCharacterSize(24);
+									text.setFillColor(sf::Color::White);
+									text.setPosition(760, 450);
+									window.draw(text);
+									window.display();
+									while (window.isOpen()) {
+										sf::Event event;
+										while (window.pollEvent(event))
+										{
+											if (event.type == sf::Event::Closed)
+												window.close();
+										}
+									}
 									std::cout << "Bot win" << std::endl;
 								}
-								window.close();
-								return;
 							}
 						}
-						
 					}
 					if ((*player1).getHand().size() == 1)
 					{
@@ -392,10 +427,50 @@ void Game::displayGame()
 			{
 				if (player == player1)
 				{
+					sf::RectangleShape rectangle(sf::Vector2f(300, 150));
+					rectangle.setFillColor(sf::Color::Red);
+					rectangle.setPosition(740, 420);
+					sf::Text text;
+					text.setFont(font);
+					text.setString("Player 1 win");
+					text.setCharacterSize(70);
+					text.setFillColor(sf::Color::White);
+					text.setPosition(760, 450);
+					window.draw(rectangle);
+					window.draw(text);
+					window.display();
+					while (window.isOpen()) {
+						sf::Event event;
+						while (window.pollEvent(event))
+						{
+							if (event.type == sf::Event::Closed)
+								window.close();
+						}
+					}
 					std::cout << "Player 1 win" << std::endl;
 				}
 				else
 				{
+					sf::RectangleShape rectangle(sf::Vector2f(300, 150));
+					rectangle.setFillColor(sf::Color::Red);
+					rectangle.setPosition(740, 420);
+					sf::Text text;
+					text.setFont(font);
+					text.setString("Bot win");
+					text.setCharacterSize(70);
+					text.setFillColor(sf::Color::White);
+					text.setPosition(760, 450);
+					window.draw(rectangle);
+					window.draw(text);
+					window.display();
+					while (window.isOpen()) {
+						sf::Event event;
+						while (window.pollEvent(event))
+						{
+							if (event.type == sf::Event::Closed)
+								window.close();
+						}
+					}
 					std::cout << "Bot win" << std::endl;
 				}
 				window.close();
