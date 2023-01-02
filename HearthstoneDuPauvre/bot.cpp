@@ -48,14 +48,18 @@ void Bot::play(Player* ennemy)
 		else if (typeid(*selectedCard) == typeid(Spell)) {
 			Spell* spell = dynamic_cast<Spell*>(selectedCard);
 			int cpt = 0;
+			int cptPlayer = 0;
 			for (int i = 0; i < spell->getEffects().size(); i++) {
 				if (spell->getEffects()[i]->getTarget() == SINGLE) {
 					cpt++;
+					if (spell->getEffects()[i]->getBonus() == Bonus::DAMAGE_ON_PLAYER) {
+						cptPlayer = spell->getEffects()[i]->getValue();
+					}
 					break;
 				}
 			}
 			std::cout << "cpt : " << cpt << std::endl;
-			if (cpt == 0) {
+			if (cpt == 0 && this->cardsOnBoard.size() > 0) {
 				this->placeOnBoard(this->getHand()[0], ennemy, nullptr);
 				std::cout << "Spell used on a group of card" << std::endl;
 				for (int i = 0; i < ennemy->getCardsOnBoard().size(); i++) {
@@ -65,6 +69,10 @@ void Bot::play(Player* ennemy)
 						(*ennemy).erase(minion);
 					}
 				}
+			}
+			else if (cptPlayer != 0) {
+				std::cout << "Spell attack on player";
+				this->placeOnBoard(spell, ennemy, nullptr);
 			}
 			else {
 				if (ennemy->getCardsOnBoard().size() > 0) {
@@ -84,7 +92,7 @@ void Bot::play(Player* ennemy)
 	}
 
 	/* Attack the first ennemy card */
-	if (ennemy->getCardsOnBoard().size() != 0) {
+	if (ennemy->getCardsOnBoard().size() != 0 && this->getCardsOnBoard().size() != 0) {
 		/* Cast the card into a minion */
 		Minion* ennemyMinion = dynamic_cast<Minion*>(ennemy->getCardsOnBoard()[0]);
 		this->getCardsOnBoard()[0]->useOn(ennemyMinion);
