@@ -1,6 +1,7 @@
 #include "Board.h"
 #include <iostream>
 
+/* Constructor */
 Board::Board(Player* player1, Bot* player2, TurnManager *turnManager, sf::Texture* backgroundTexture)
 {
     this->player1 = player1;
@@ -18,12 +19,8 @@ Board::Board(Player* player1, Bot* player2, TurnManager *turnManager, sf::Textur
 	this->j2cardBoard.setPosition(300.f, 300.f);
 	this->background = sf::Sprite(*(backgroundTexture));
 }
-void Board::dispawnCard(Card* card) {
-	//fonction qui delete une carte du board
-	
 
-}
-
+/* Getters */
 Player& Board::getPlayer1() {
 	return *this->player1;
 }
@@ -47,6 +44,7 @@ TurnManager& Board::getTurnManager() {
 	return *this->turnManager;
 }
 
+/* Destructor */
 Board::~Board() {
 
 }

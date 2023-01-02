@@ -38,8 +38,8 @@ Deck* DeckGenerator::generateDeck1()
 			new Spell("Manavore",0,1,"24.png",std::vector<Effect*>() = { new Effect(Bonus::DRAW_CARDS, 2, Target::DEFAULT)}),
 			new Minion("Mystique briseclat", 3, 4, "25.png", 3,DIVINE_SHIELD_STATUS),
 			new Minion("Mystique briseclat", 3, 4, "26.png", 3,DIVINE_SHIELD_STATUS),
-			new Minion("Panthara devore mana", 2, 3, "27.png", 2),
-			new Minion("Panthara devore mana", 2, 3, "28.png", 2),
+			new Minion("Panthara devore mana", 3, 2, "27.png", 2),
+			new Minion("Panthara devore mana", 3, 2, "28.png", 2),
 			new Minion("Tranche moelle",4,4,"29.png",2, std::vector<Effect*>() = { new Effect(Bonus::DAMAGE_MALUS, 1, Target::GROUP), new Effect(Bonus::DRAW_CARDS, 1, Target::DEFAULT)}),
 			new Minion("Tranche moelle",4,4,"30.png",2, std::vector<Effect*>() = { new Effect(Bonus::DAMAGE_MALUS, 1, Target::GROUP), new Effect(Bonus::DRAW_CARDS, 1, Target::DEFAULT)}),
 			
