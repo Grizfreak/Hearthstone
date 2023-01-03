@@ -1,13 +1,11 @@
 #include "DeckGenerator.h"
 
+/* Constructor (default one) */
 DeckGenerator::DeckGenerator()
 {
 }
 
-DeckGenerator::~DeckGenerator()
-{
-}
-
+/* Method used to generate the first deck for the first player */
 Deck* DeckGenerator::generateDeck1()
 {
 	return new Deck(std::vector<Card*>() =
@@ -48,6 +46,7 @@ Deck* DeckGenerator::generateDeck1()
 		});
 }
 
+/* Method used to generate the second deck for the second player (The bot) */
 Deck* DeckGenerator::generateDeck2()
 {
 	return new Deck(std::vector<Card*>() =
@@ -83,4 +82,9 @@ Deck* DeckGenerator::generateDeck2()
 			new Minion("Wolpertinger", 0, 0, "59.png", 2),
 			new Minion("Wolpertinger", 0, 0, "60.png", 2),
 		});
+}
+
+/* Destructor */
+DeckGenerator::~DeckGenerator()
+{
 }

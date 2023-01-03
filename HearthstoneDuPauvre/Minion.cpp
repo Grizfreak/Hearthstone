@@ -5,13 +5,21 @@
 #include "Minion.h"
 
 /* Constructors */
+
+/* Detailled constructor */
 Minion::Minion(std::string name, int attack, int costMana, std::string imagePath, int defense, Status status) : Card(name, attack, costMana, imagePath) {
+	
+	/* Useful informations */
 	this->defense = defense;
 	this->status = status;
 	this->effects = std::vector<Effect*>();
+
+	/* Texts */
 	this->defenseText = sf::Text(std::to_string(this->defense), this->font, 40);
 	this->defenseText.setFillColor(sf::Color::Green);
 	this->textRectangles.push_back(this->defenseText);
+
+	/* Status */
 	if (this->status == Status::RUSH_STATUS) {
 		this->setCanAttack(true);
 	}
@@ -20,23 +28,33 @@ Minion::Minion(std::string name, int attack, int costMana, std::string imagePath
 	}
 }
 
+/* Detailled constructor */
 Minion::Minion(std::string name, int attack, int costMana, std::string imagePath, int defense) : Card(name, attack, costMana, imagePath) {
+	/* Useful informations */
 	this->defense = defense;
 	this->status = Status::DEFAULT_STATUS;
 	this->effects = std::vector<Effect*>();
+
+	/* Texts */
 	this->defenseText = sf::Text(std::to_string(this->defense), this->font, 40);
 	this->defenseText.setFillColor(sf::Color::Green);
 	this->textRectangles.push_back(this->defenseText);
 }
 
+/* Detailled constructor */
 Minion::Minion(std::string name, int attack, int costMana, std::string imagePath, int defense, Status status, std::vector<Effect*> effects)
 	: Card(name, attack, costMana, imagePath) {
+	/* Useful informations */
 	this->defense = defense;
 	this->status = status;
 	this->effects = effects;
+
+	/* Texts */
 	this->defenseText = sf::Text(std::to_string(this->defense), this->font, 40);
 	this->defenseText.setFillColor(sf::Color::Green);
 	this->textRectangles.push_back(this->defenseText);
+
+	/* Status*/
 	if (this->status == Status::RUSH_STATUS) {
 		this->setCanAttack(true);
 	}
@@ -45,17 +63,21 @@ Minion::Minion(std::string name, int attack, int costMana, std::string imagePath
 	}
 }
 
+/* Detailled constructor */
 Minion::Minion(std::string name, int attack, int costMana, std::string imagePath, int defense, std::vector<Effect*> effects)
 	: Card(name, attack, costMana, imagePath) {
+	/* Useful informations */
 	this->defense = defense;
 	this->status = Status::DEFAULT_STATUS;
 	this->effects = effects;
+
+	/* Texts */
 	this->defenseText = sf::Text(std::to_string(this->defense), this->font, 40);
 	this->defenseText.setFillColor(sf::Color::Green);
 	this->textRectangles.push_back(this->defenseText);
 }
 
-/* Methods */
+/* Method used to use a minion on another minion */
 void Minion::useOn(Card* card)
 {
 	/* If the card can attack */
@@ -63,24 +85,21 @@ void Minion::useOn(Card* card)
 		/* Cast the card into a minion so it can access it's following attributes */
 		Minion* minionToAttack = dynamic_cast<Minion*>(card);
 
-		/* Console Input + Each minion lose like by attacking each other */
+		/* Each minion lose life by attacking each other */
 		if (minionToAttack->getDivineShield() == false) {
-			std::cout << "Minion " << this->getName() << " attacks " << minionToAttack->getName() + "\n";
 			minionToAttack->loseLife(this->getAttack());
 		}
 		/* MinionToAttack owns a divine shield */
 		else {
-			std::cout << "Can't attack this minion because it owns a divine shield" << "\n";
 			minionToAttack->setDivineShield(false);
 		}
 		
+		/* Each minion lose life by attacking each other */
 		if (this->getDivineShield() == false) {
-			std::cout << "Minion " << minionToAttack->getName() << " attacks " << this->getName() + "\n";
 			this->loseLife(minionToAttack->getAttack());
 		}
 		/* MinionToAttack owns a divine shield */
 		else {
-			std::cout << "Can't attack this minion because it owns a divine shield" << "\n";
 			this->setDivineShield(false);
 		}	
 
@@ -92,12 +111,14 @@ void Minion::useOn(Card* card)
 	}
 }
 
+/* Method used to use a minion on a list of cards - Not possible */
 void Minion::useOn(std::vector<Card*> listOfCards)
 {
-	std::cout << "Un minion ne peut pas attaquer plusieurs cibles en meme temps";
+	std::cout << "A minion cannot attack several targets at the same time";
 	return;
 }
 
+/* Method used to get the string value of the status */
 std::string Minion::statusToString(Status status) const
 {
 	switch (status)
@@ -115,27 +136,32 @@ std::string Minion::statusToString(Status status) const
 	}
 }
 
+/* Method used to refresh texts of the player (mana and health)*/
 void Minion::refreshTextDatas() {
 	this->defenseText.setString(std::to_string(this->defense));
 	Card::refreshTextDatas();
 }
 
+/* Method sued to refresh texts positions */
 std::vector<sf::Vector2f> Minion::refreshTextPositions() {
 	std::vector<sf::Vector2f> positions = Card::refreshTextPositions();
 	positions.push_back(sf::Vector2f(this->cardRectangle.getPosition().x + 120, this->cardRectangle.getPosition().y + 130));
 	return positions;
 }
 
+/* Method which remove life from the player */
 void Minion::loseLife(int life)
 {
 	this->defense -= life;
 }
 
+/* Method which gain life of a player */
 void Minion::gainLife(int life)
 {
 	this->defense += life;
 }
 
+/* Getters */
 int Minion::getDefense()
 {
 	return this->defense;
@@ -152,12 +178,7 @@ std::vector<Effect*> Minion::getEffects()
 	return this->effects;
 }
 
-/* Destructors */
-Minion::~Minion() {
-
-}
-
-/* Redefined operators */
+/* Redefined operators << to print information about a minion */
 std::ostream& operator<<(std::ostream& os, const Minion& minion)
 {
 	os << "Minion Description : \n"
@@ -167,4 +188,8 @@ std::ostream& operator<<(std::ostream& os, const Minion& minion)
 		<< "\t - Defense : " << minion.defense << "\n"
 		<< "\t - Status : " << minion.statusToString(minion.status) << "\n";
 	return os;
+}
+
+/* Destructors */
+Minion::~Minion() {
 }
