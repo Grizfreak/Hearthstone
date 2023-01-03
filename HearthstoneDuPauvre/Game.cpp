@@ -366,29 +366,11 @@ void Game::displayGame()
 								if (player == player1)
 								{
 									this->drawWin(window, player, font, player1, player2);
-									while (window.isOpen()) {
-										sf::Event event;
-										while (window.pollEvent(event))
-										{
-											if (event.type == sf::Event::Closed)
-												this->musicManager.stopMusic(MusicEnum::DUELMUSIC);
-												window.close();
-										}
-									}
 									std::cout << "Player 1 win" << std::endl;
 								}
 								else
 								{
 									this->drawWin(window, player, font, player1, player2);
-									while (window.isOpen()) {
-										sf::Event event;
-										while (window.pollEvent(event))
-										{
-											if (event.type == sf::Event::Closed)
-												this->musicManager.stopMusic(MusicEnum::DUELMUSIC);
-												window.close();
-										}
-									}
 									std::cout << "Bot win" << std::endl;
 								}
 							}
@@ -423,27 +405,11 @@ void Game::displayGame()
 				if (player == player1)
 				{
 					this->drawWin(window, player, font, player1, player2);
-					while (window.isOpen()) {
-						sf::Event event;
-						while (window.pollEvent(event))
-						{
-							if (event.type == sf::Event::Closed)
-								window.close();
-						}
-					}
 					std::cout << "Player 1 win" << std::endl;
 				}
 				else
 				{
 					this->drawWin(window, player, font, player1, player2);
-					while (window.isOpen()) {
-						sf::Event event;
-						while (window.pollEvent(event))
-						{
-							if (event.type == sf::Event::Closed)
-								window.close();
-						}
-					}
 					std::cout << "Bot win" << std::endl;
 				}
 				window.close();
@@ -660,6 +626,16 @@ void Game::drawWin(sf::RenderWindow& window, Player* player, sf::Font font, Play
 	window.draw(rectangle);
 	window.draw(text);
 	window.display();
+	while (1) {
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed) {
+				this->musicManager.stopMusic(MusicEnum::DUELMUSIC);
+				window.close();
+			}
+		}
+	}
 }
 
 /* Destructor */
