@@ -1,7 +1,7 @@
 #pragma once
 #include "MusicEnum.h"
 #include <SFML/Audio.hpp>
-
+#include <iostream>
 
 class MusicManager
 {

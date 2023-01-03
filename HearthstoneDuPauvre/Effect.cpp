@@ -1,5 +1,6 @@
 #include "Effect.h"
 
+/* Constructor */
 Effect::Effect(Bonus bonus, int value, Target target)
 {
 	this->bonus = bonus;
@@ -7,6 +8,7 @@ Effect::Effect(Bonus bonus, int value, Target target)
 	this->target = target;
 }
 
+/* Method useful to get the string value of the Bonus enum */
 std::string Effect::bonusToString(Bonus bonus) const
 {
 	switch (bonus)
@@ -26,6 +28,7 @@ std::string Effect::bonusToString(Bonus bonus) const
 	}
 }
 
+/* Method useful to get the string value of the Target enum */
 std::string Effect::targetToString(Target target) const
 {
 	switch (target)
@@ -41,6 +44,7 @@ std::string Effect::targetToString(Target target) const
 	}
 }
 
+/* Getters */
 Bonus Effect::getBonus() const
 {
 	return this->bonus;
@@ -56,14 +60,16 @@ Target Effect::getTarget() const
 	return this->target;
 }
 
-Effect::~Effect()
-{
-}
-
+/* Redefined operator << to print the informations about the effect */
 std::ostream& operator<<(std::ostream& os, const Effect& effect)
 {
 	os << "Effect: " << effect.bonusToString(effect.bonus) 
 		<< ", " << effect.value 
 		<< ", " << effect.targetToString(effect.target);
 	return os;
+}
+
+/* Destructor */
+Effect::~Effect()
+{
 }

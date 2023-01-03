@@ -14,7 +14,6 @@ private:
 public:
   Game(Board& board, MusicManager music);
 	void displayMenu();
-	void start();
 	Player* checkWin();
 	void displayGame();
 	void drawGame(sf::RenderWindow& window, Card* selectedCard, Card* cardToDisplay, std::vector<sf::RectangleShape*> hitboxes, sf::Font font, sf::RectangleShape buttonEndTurn);
