@@ -16,11 +16,7 @@ Card::Card(std::string name, int attack, int costMana, std::string imagePath) {
 	
 	/* We set up the path with the default path and a specified path passed as parameter */
 	this->imagePath = "./assets/cards/" + imagePath;
-	/* If there is an error while loading the image */
-	if (!this->cardTexture.loadFromFile(this->imagePath)) {
-		std::cout << "Error loading card texture for card " + this->name << std::endl;
-	}
-
+	
 	/* If there is an error while loading font */
 	if (!this->font.loadFromFile("./assets/arial.ttf")) {
 		std::cout << "Error loading font for card " + this->name << std::endl;
@@ -28,6 +24,10 @@ Card::Card(std::string name, int attack, int costMana, std::string imagePath) {
 	
 	/* Texture and sprites */
 	this->cardTexture = sf::Texture();
+	/* If there is an error while loading the image */
+	if (!this->cardTexture.loadFromFile(this->imagePath)) {
+		std::cout << "Error loading card texture for card " + this->name << std::endl;
+	}
 	this->cardSprite = sf::Sprite(this->cardTexture);
 	this->cardRectangle.setTexture(&this->cardTexture);
 

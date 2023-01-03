@@ -365,7 +365,7 @@ void Game::displayGame()
 							{
 								if (player == player1)
 								{
-									this->drawWin(window, player, font);
+									this->drawWin(window, player, font, player1, player2);
 									while (window.isOpen()) {
 										sf::Event event;
 										while (window.pollEvent(event))
@@ -379,7 +379,7 @@ void Game::displayGame()
 								}
 								else
 								{
-									this->drawWin(window, player, font);
+									this->drawWin(window, player, font, player1, player2);
 									while (window.isOpen()) {
 										sf::Event event;
 										while (window.pollEvent(event))
@@ -422,7 +422,7 @@ void Game::displayGame()
 			{
 				if (player == player1)
 				{
-					this->drawWin(window, player, font);
+					this->drawWin(window, player, font, player1, player2);
 					while (window.isOpen()) {
 						sf::Event event;
 						while (window.pollEvent(event))
@@ -435,7 +435,7 @@ void Game::displayGame()
 				}
 				else
 				{
-					this->drawWin(window, player, font);
+					this->drawWin(window, player, font, player1, player2);
 					while (window.isOpen()) {
 						sf::Event event;
 						while (window.pollEvent(event))
@@ -642,13 +642,18 @@ Card* Game::waitforMouseInput(sf::RenderWindow& window, std::vector<sf::Rectangl
 	}
 }
 
-void Game::drawWin(sf::RenderWindow& window, Player* player, sf::Font font){
+void Game::drawWin(sf::RenderWindow& window, Player* player, sf::Font font, Player* player1, Player* player2){
 	sf::RectangleShape rectangle(sf::Vector2f(450, 150));
 	rectangle.setFillColor(sf::Color::Red);
 	rectangle.setPosition(650, 420);
 	sf::Text text;
+	if (player == player1) {
+		text.setString("Player 1 wins !");
+	}
+	else {
+		text.setString("Bot wins !");
+	}
 	text.setFont(font);
-	text.setString("Player 1 win");
 	text.setCharacterSize(70);
 	text.setFillColor(sf::Color::White);
 	text.setPosition(670, 450);
