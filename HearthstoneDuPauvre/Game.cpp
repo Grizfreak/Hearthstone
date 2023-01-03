@@ -235,6 +235,7 @@ void Game::displayGame()
 						{
 							holdingCard = true;
 							selectedCard = (*player1).getHand()[i];
+							cardToDisplay = nullptr;
 						}
 					}
 					for (int i = 0; i < (*player1).getCardsOnBoard().size(); i++)
@@ -510,12 +511,12 @@ void Game::drawGame(sf::RenderWindow &window, Card *selectedCard, Card *cardToDi
 		(*player2).getHand()[i]->refreshTextPositions();
 	}
 	/*Drawing hitboxes for card movement and drop*/
-	for (int i = 0; i < hitboxes.size(); i++)
+	/*for (int i = 0; i < hitboxes.size(); i++)
 	{
 		window.draw((*hitboxes[i]));
-	}
+	}*/
 	/*Drawing button to endTurn*/
-	window.draw(buttonEndTurn);
+	//window.draw(buttonEndTurn);
 	/*Displaying card image in larger size if one is selected to be displayed*/
 	if (cardToDisplay != nullptr)
 	{
