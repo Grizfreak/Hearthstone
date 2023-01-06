@@ -307,10 +307,12 @@ void Game::displayGame()
 							}
 							else {
 								Card* cardTotouchWithEffect = waitforMouseInput(window, hitboxes, player1, player2);
-								player1->placeOnBoard(selectedCard, player2, cardTotouchWithEffect);
-								Minion* minionToTouchWithEffect = dynamic_cast<Minion*>(cardTotouchWithEffect);
-								if (minionToTouchWithEffect->getDefense() <= 0) {
-									(*player2).erase(minionToTouchWithEffect);
+								if (cardTotouchWithEffect != nullptr) {
+									player1->placeOnBoard(selectedCard, player2, cardTotouchWithEffect);
+									Minion* minionToTouchWithEffect = dynamic_cast<Minion*>(cardTotouchWithEffect);
+									if (minionToTouchWithEffect->getDefense() <= 0) {
+										(*player2).erase(minionToTouchWithEffect);
+									}
 								}
 							}
 						}
