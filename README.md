@@ -17,9 +17,13 @@ Nous devions avant de commencer à coder réaliser un diagramme de classe pour a
 
 ![](https://github.com/Grizfreak/Hearthstone/blob/main/UML/diagramme_de_classe_Hearthstone.png)
 
+Après avoir réalisé l'ensemble du projet, nous avons refait un diagramme de classe pour constater les nouveautés de conception que nous avons pu ajouter durant la phase de développement :
+
+![](https://github.com/Grizfreak/Hearthstone/blob/main/UML/nouveau_diagramme_de_classe_Hearthstone.png)
+
 # Règles du jeu
 
-Vous pouvez retrouver toutes les règles du jeu Hearthstone via [ce lien](https://hearthstone.judgehype.com/regles-hearthstone/) 
+Vous pouvez retrouver toutes les règles du jeu Hearthstone via [ce lien](https://hearthstone.judgehype.com/regles-hearthstone/)
 
 # Contributeurs
 
