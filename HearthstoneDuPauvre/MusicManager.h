@@ -6,13 +6,13 @@
 class MusicManager
 {
 private:
-	MusicEnum currentMusic;
+	MusicEnum currentMusic; 
 	sf::Music* ambientMusic;
 	sf::Music* fxMusic;
 public:
-	MusicManager(MusicEnum music);
-	MusicManager();
-	void playMusic(MusicEnum musicEnum, bool loop);
-	void stopMusic(MusicEnum music);
-	~MusicManager();
+	MusicManager(MusicEnum music); // Constructor
+	MusicManager(); // Constructor
+	void playMusic(MusicEnum musicEnum, bool loop);// focntion to play music
+	void stopMusic(MusicEnum music); // function to stop music
+	~MusicManager(); // Destructor
 };
